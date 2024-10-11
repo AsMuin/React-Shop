@@ -1,4 +1,5 @@
 export default {
+    printWidth: 150,
     tabWidth: 4,
     // 强制使用单引号
     singleQuote: true,
