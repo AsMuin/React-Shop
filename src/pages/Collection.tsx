@@ -58,7 +58,7 @@ export default function Collection() {
         <>
             <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
                 <div className="min-w-60">
-                    <p onChange={() => setShowFilters(!showFilters)} className="my-2 text-xl flex items-center cursor-pointer gap-2">
+                    <p onClick={() => setShowFilters(!showFilters)} className="my-2 text-xl flex items-center cursor-pointer gap-2">
                         FILTERS
                         <img className={`h-3 sm:hidden ${showFilters ? 'rotate-90' : ''}`} src={assets.dropdown_icon} alt="" />
                     </p>
