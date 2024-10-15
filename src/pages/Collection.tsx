@@ -5,7 +5,7 @@ import { ShopContext } from '@/context/ShopContext';
 import { useContext, useEffect, useState } from 'react';
 
 export default function Collection() {
-    const { products } = useContext(ShopContext);
+    const { products, search, showSearch } = useContext(ShopContext);
     const [showFilters, setShowFilters] = useState(false);
     const [filterProducts, setFilterProducts] = useState<typeof products>([]);
     const [category, setCategory] = useState<string[]>([]);
@@ -29,7 +29,11 @@ export default function Collection() {
     useEffect(() => {
         console.log(category);
         console.log(subCategory);
-        const filteredProducts = products!.filter(product => {
+        let filteredProducts = products?.slice();
+        if (showSearch && search) {
+            filteredProducts = filteredProducts?.filter(product => product.name.toLowerCase().includes(search.toLowerCase()));
+        }
+        filteredProducts = filteredProducts?.filter(product => {
             if (category.length > 0 && !category.includes(product.category)) {
                 return false;
             }
@@ -52,7 +56,7 @@ export default function Collection() {
                 break;
             }
         }
-    }, [category, subCategory, products, sortType]);
+    }, [category, subCategory, products, sortType, search, showSearch]);
 
     return (
         <>
