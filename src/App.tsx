@@ -3,10 +3,12 @@ import { Suspense } from 'react';
 import Navbar from './components/Navbar';
 import ShopContextProvider from './context/ShopContext';
 import SearchBar from './components/SearchBar';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function App() {
     return (
         <>
+            <ToastContainer />
             <ShopContextProvider>
                 <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
                     <Navbar></Navbar>

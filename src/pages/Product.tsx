@@ -1,10 +1,11 @@
 import { assets } from '@/assets/assets';
+import RelatedProducts from '@/components/RelatedProducts';
 import { ShopContext, ProductItem } from '@/context/ShopContext';
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 export default function Product() {
     const { productId } = useParams();
-    const { products, currency } = useContext(ShopContext);
+    const { products, currency, addToCart } = useContext(ShopContext);
     const [productData, setProductData] = useState<ProductItem | null>(null);
     const [image, setImage] = useState('');
     const [selectSize, setSelectSize] = useState('');
@@ -67,7 +68,11 @@ export default function Product() {
                                 ))}
                             </div>
                         </div>
-                        <button className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700">ADD TO CART</button>
+                        <button
+                            onClick={() => addToCart!(productData._id, selectSize)}
+                            className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700">
+                            ADD TO CART
+                        </button>
                         <hr className="mt-8 sm:w-4/5" />
                         <div className="text-sm text-gray-500 mt-5 flex flex-col gap-1">
                             <p>100% Original product</p>
@@ -94,6 +99,7 @@ export default function Product() {
                     </p>
                 </div>
             </div>
+            <RelatedProducts category={productData.category} subCategory={productData.subCategory} />
         </>
     ) : (
         <>

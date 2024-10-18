@@ -4,7 +4,7 @@ import { useContext, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 export default function Navbar() {
     const [visible, setVisible] = useState(false);
-    const { setShowSearch } = useContext(ShopContext);
+    const { setShowSearch, getCartTotal } = useContext(ShopContext);
     const links = [
         { name: 'Home', path: '/' },
         { name: 'Collection', path: '/collection' },
@@ -40,7 +40,7 @@ export default function Navbar() {
                     <Link to="/cart" className="relative">
                         <img src={assets.cart_icon} className="w-5 min-w-5" alt="cart" />
                         <p className="absolute right-[-5px] bottom-[-5px] w-4  text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]">
-                            10
+                            {getCartTotal!()}
                         </p>
                     </Link>
                     <img onClick={() => setVisible(true)} src={assets.menu_icon} className="w-5 cursor-pointer sm:hidden" alt="" />
