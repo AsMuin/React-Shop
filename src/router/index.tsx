@@ -39,6 +39,10 @@ const router = createBrowserRouter([
                 Component: lazy(() => import('@/pages/Collection'))
             },
             {
+                path: 'cart',
+                Component: lazy(() => import('@/pages/Cart'))
+            },
+            {
                 path: 'contact',
                 Component: lazy(() => import('@/pages/Contact'))
             }

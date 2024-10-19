@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 import { products } from '@/assets/assets';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 export interface ProductItem {
     _id: string;
     name: string;
@@ -24,6 +25,9 @@ export const ShopContext = createContext<{
     cartItems?: any;
     addToCart?: (productId: string, size: string) => void;
     getCartTotal?: () => number;
+    updateCartItem?: (productId: string, size: string, quantity: number) => void;
+    getCartAmount?: () => number;
+    navigate?: ReturnType<typeof useNavigate>;
 }>({});
 
 const ShopContextProvider = function (props: { children: React.ReactNode }) {
@@ -32,6 +36,7 @@ const ShopContextProvider = function (props: { children: React.ReactNode }) {
     const [search, setSearch] = useState('');
     const [showSearch, setShowSearch] = useState(true);
     const [cartItems, setCartItems] = useState<any>({});
+    const navigate = useNavigate();
 
     function addToCart(productId: string, size: string) {
         if (!size) {
@@ -65,6 +70,33 @@ const ShopContextProvider = function (props: { children: React.ReactNode }) {
         }
         return total;
     }
+    function updateCartItem(productId: string, size: string, quantity: number) {
+        const cartItemsCopy = structuredClone(cartItems);
+        if (quantity < 1) {
+            delete cartItemsCopy[productId][size];
+            if (Object.keys(cartItemsCopy[productId]).length === 0) {
+                delete cartItemsCopy[productId];
+            }
+        } else {
+            cartItemsCopy[productId][size] = quantity;
+        }
+        setCartItems(cartItemsCopy);
+    }
+    function getCartAmount() {
+        let totalAmount = 0;
+        for (const productId in cartItems) {
+            const productInfo = products.find(product => product._id === productId);
+            try {
+                for (const size in cartItems[productId]) {
+                    totalAmount += cartItems[productId][size] * (productInfo?.price || 0);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        return totalAmount;
+    }
+
     useEffect(() => {
         console.log('cartItems', cartItems);
     });
@@ -78,7 +110,10 @@ const ShopContextProvider = function (props: { children: React.ReactNode }) {
         setShowSearch,
         cartItems,
         addToCart,
-        getCartTotal
+        getCartTotal,
+        updateCartItem,
+        getCartAmount,
+        navigate
     };
     return <ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>;
 };
