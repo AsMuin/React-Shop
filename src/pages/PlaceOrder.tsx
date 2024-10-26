@@ -1,12 +1,12 @@
 import { assets } from '@/assets/assets';
 import CartTotal from '@/components/CartTotal';
 import Title from '@/components/Title';
-import { ShopContext } from '@/context/ShopContext';
-import { useContext, useState } from 'react';
+import { useShopContext } from '@/hook/context';
+import { useState } from 'react';
 
 export default function PlaceOrder() {
     const [method, setMethod] = useState('cod');
-    const { navigate } = useContext(ShopContext);
+    const { navigate } = useShopContext();
     return (
         <>
             <div className="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t">

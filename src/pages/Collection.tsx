@@ -1,11 +1,11 @@
 import { assets } from '@/assets/assets';
 import ProductItem from '@/components/ProductItem';
 import Title from '@/components/Title';
-import { ShopContext } from '@/context/ShopContext';
-import { useContext, useEffect, useState } from 'react';
+import { useShopContext } from '@/hook/context';
+import { useEffect, useState } from 'react';
 
 export default function Collection() {
-    const { products, search, showSearch } = useContext(ShopContext);
+    const { products, search, showSearch } = useShopContext();
     const [showFilters, setShowFilters] = useState(false);
     const [filterProducts, setFilterProducts] = useState<typeof products>([]);
     const [category, setCategory] = useState<string[]>([]);

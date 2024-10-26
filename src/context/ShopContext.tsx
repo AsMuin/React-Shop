@@ -14,21 +14,24 @@ export interface ProductItem {
     date: number;
     bestseller: boolean;
 }
-export const ShopContext = createContext<{
-    products?: ProductItem[];
-    currency?: string;
-    delivery_fee?: number;
-    search?: string;
-    setSearch?: React.Dispatch<React.SetStateAction<string>>;
-    showSearch?: boolean;
-    setShowSearch?: React.Dispatch<React.SetStateAction<boolean>>;
-    cartItems?: any;
-    addToCart?: (productId: string, size: string) => void;
-    getCartTotal?: () => number;
-    updateCartItem?: (productId: string, size: string, quantity: number) => void;
-    getCartAmount?: () => number;
-    navigate?: ReturnType<typeof useNavigate>;
-}>({});
+export const ShopContext = createContext<
+    | {
+          products: ProductItem[];
+          currency: string;
+          delivery_fee: number;
+          search: string;
+          setSearch: React.Dispatch<React.SetStateAction<string>>;
+          showSearch: boolean;
+          setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
+          cartItems: any;
+          addToCart: (productId: string, size: string) => void;
+          getCartTotal: () => number;
+          updateCartItem: (productId: string, size: string, quantity: number) => void;
+          getCartAmount: () => number;
+          navigate: ReturnType<typeof useNavigate>;
+      }
+    | undefined
+>(undefined);
 
 const ShopContextProvider = function (props: { children: React.ReactNode }) {
     const currency = '￥';

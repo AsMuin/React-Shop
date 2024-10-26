@@ -1,11 +1,12 @@
 import { assets } from '@/assets/assets';
 import RelatedProducts from '@/components/RelatedProducts';
-import { ShopContext, ProductItem } from '@/context/ShopContext';
-import { useContext, useEffect, useState } from 'react';
+import { ProductItem } from '@/context/ShopContext';
+import { useShopContext } from '@/hook/context';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 export default function Product() {
     const { productId } = useParams();
-    const { products, currency, addToCart } = useContext(ShopContext);
+    const { products, currency, addToCart } = useShopContext();
     const [productData, setProductData] = useState<ProductItem | null>(null);
     const [image, setImage] = useState('');
     const [selectSize, setSelectSize] = useState('');

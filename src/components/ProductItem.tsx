@@ -1,9 +1,8 @@
-import { ShopContext } from '@/context/ShopContext';
-import { useContext } from 'react';
+import { useShopContext } from '@/hook/context';
 import { Link } from 'react-router-dom';
 
 export default function ProductItem({ id, name, price, image }: { id: string; name: string; price: number; image: string[] }) {
-    const { currency } = useContext(ShopContext);
+    const { currency } = useShopContext();
     return (
         <>
             <Link className="text-gray-700 cursor-pointer" to={`/product/${id}`}>

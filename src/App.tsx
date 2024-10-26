@@ -5,6 +5,7 @@ import ShopContextProvider from './context/ShopContext';
 import SearchBar from './components/SearchBar';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from './components/Footer';
 export default function App() {
     return (
         <>
@@ -16,6 +17,7 @@ export default function App() {
                     <Suspense fallback={<div>Loading...</div>}>
                         <Outlet />
                     </Suspense>
+                    <Footer />
                 </div>
             </ShopContextProvider>
         </>

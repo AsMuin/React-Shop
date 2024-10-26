@@ -1,13 +1,14 @@
-import { ProductItem as ProductItemType, ShopContext } from '@/context/ShopContext';
-import { useContext, useEffect, useState } from 'react';
+import { ProductItem as ProductItemType } from '@/context/ShopContext';
+import { useEffect, useState } from 'react';
 import Title from './Title';
 import ProductItem from './ProductItem';
+import { useShopContext } from '@/hook/context';
 
 export default function RelatedProducts({ category, subCategory }: { category: string; subCategory: string }) {
-    const { products } = useContext(ShopContext);
+    const { products } = useShopContext();
     const [related, setRelated] = useState<ProductItemType[]>([]);
     useEffect(() => {
-        if (products!.length) {
+        if (products.length) {
             const relatedProducts = products!.filter(product => product.category === category && product.subCategory === subCategory);
             setRelated(relatedProducts.slice(0, 5));
         }

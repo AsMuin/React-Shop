@@ -10,7 +10,9 @@ export default function NewsletterBox() {
                 <p className="text-gray-400 mt-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                 <form onSubmit={onSubmit} className="w-full sm:w1/2 flex items-center gap-3 mx-auto my-6 border pl-3" action="">
                     <input className="w-full sm:flex-1 outline-none" type="email" placeholder="Enter your email address" required />
-                    <button type="submit" className="bg-black text-white text-xs px-10 py-4"></button>
+                    <button type="submit" className="bg-black text-white text-xs px-10 py-4">
+                        SUBSCRIBE
+                    </button>
                 </form>
             </div>
         </>

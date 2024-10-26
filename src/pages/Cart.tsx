@@ -1,15 +1,15 @@
 import { assets } from '@/assets/assets';
 import CartTotal from '@/components/CartTotal';
 import Title from '@/components/Title';
-import { ShopContext } from '@/context/ShopContext';
-import { useContext, useEffect, useState } from 'react';
+import { useShopContext } from '@/hook/context';
+import { useEffect, useState } from 'react';
 interface CartItem {
     _id: string;
     size: string;
     quantity: number;
 }
 export default function Cart() {
-    const { products, currency, cartItems, navigate, updateCartItem } = useContext(ShopContext);
+    const { products, currency, cartItems, navigate, updateCartItem } = useShopContext();
     const [cartData, setCartData] = useState<CartItem[]>([]);
     useEffect(() => {
         const cartDataCopy = [];
@@ -78,7 +78,7 @@ export default function Cart() {
                     <div className="w-full sm:w-[450px]">
                         <CartTotal />
                         <div className="w-full text-end">
-                            <button onClick={() => navigate!('/place-order')} className="bg-black text-white text-sm my-8 py-3 px-8">
+                            <button onClick={() => navigate!('/placeorder')} className="bg-black text-white text-sm my-8 py-3 px-8">
                                 PROCEED TP CHECKOUT
                             </button>
                         </div>

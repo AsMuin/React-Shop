@@ -1,10 +1,10 @@
-import { ShopContext } from '@/context/ShopContext';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Title from './Title';
 import ProductItem from './ProductItem';
+import { useShopContext } from '@/hook/context';
 
 export default function BestSeller() {
-    const { products } = useContext(ShopContext);
+    const { products } = useShopContext();
     const [bestSeller, setBestSeller] = useState<typeof products>([]);
     useEffect(() => {
         const bestProduct = products!.filter(product => product.bestseller);

@@ -1,9 +1,8 @@
-import { ShopContext } from '@/context/ShopContext';
-import { useContext } from 'react';
 import Title from './Title';
+import { useShopContext } from '@/hook/context';
 
 export default function CartTotal() {
-    const { currency, delivery_fee, getCartAmount } = useContext(ShopContext);
+    const { currency, delivery_fee, getCartAmount } = useShopContext();
 
     return getCartAmount!() ? (
         <>

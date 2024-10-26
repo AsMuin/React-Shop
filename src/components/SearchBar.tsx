@@ -1,10 +1,10 @@
 import { assets } from '@/assets/assets';
-import { ShopContext } from '@/context/ShopContext';
-import { useContext, useEffect, useState } from 'react';
+import { useShopContext } from '@/hook/context';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 export default function SearchBar() {
-    const { search, setSearch, showSearch, setShowSearch } = useContext(ShopContext);
+    const { search, setSearch, showSearch, setShowSearch } = useShopContext();
     const [visible, setVisible] = useState(false);
     const location = useLocation();
     useEffect(() => {
