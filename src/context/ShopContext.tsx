@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from 'react';
 import { products } from '@/assets/assets';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { addProductToCart } from '@/api/product';
+import { addProductToCart, getUserCart, updateQuantity } from '@/api/cart';
 export interface ProductItem {
     _id: string;
     name: string;
@@ -29,6 +29,7 @@ export const ShopContext = createContext<
           getCartTotal: () => number;
           updateCartItem: (productId: string, size: string, quantity: number) => void;
           getCartAmount: () => number;
+          getUserCartData: () => void;
           navigate: ReturnType<typeof useNavigate>;
       }
     | undefined
@@ -40,31 +41,40 @@ const ShopContextProvider = function (props: { children: React.ReactNode }) {
     const [search, setSearch] = useState('');
     const [showSearch, setShowSearch] = useState(true);
     const [cartItems, setCartItems] = useState<any>({});
-    const [token, setToken] = useState('');
     const navigate = useNavigate();
-
+    // useEffect(() => {
+    //     getUserCartData();
+    // }, []);
+    async function getUserCartData() {
+        try {
+            const response = await getUserCart();
+            setCartItems(response.data);
+            console.log('response', response);
+        } catch (e) {
+            console.error(e);
+        }
+    }
     async function addToCart(productId: string, size: string) {
         if (!size) {
             toast.error('Please select a size');
             return;
         }
-        const cartItemsCopy = structuredClone(cartItems);
-        if (cartItemsCopy[productId]) {
-            if (cartItemsCopy[productId][size]) {
-                cartItemsCopy[productId][size] += 1;
+        try {
+            const response = await addProductToCart({ productId, size });
+            const cartItemsCopy = structuredClone(cartItems);
+            if (cartItemsCopy[productId]) {
+                if (cartItemsCopy[productId][size]) {
+                    cartItemsCopy[productId][size] += 1;
+                } else {
+                    cartItemsCopy[productId][size] = 1;
+                }
             } else {
-                cartItemsCopy[productId][size] = 1;
+                cartItemsCopy[productId] = { [size]: 1 };
             }
-        } else {
-            cartItemsCopy[productId] = { [size]: 1 };
-        }
-        setCartItems(cartItemsCopy);
-        if (token) {
-            try {
-                await addProductToCart({ productId, size });
-            } catch (e: any) {
-                toast.error(e.message);
-            }
+            setCartItems(cartItemsCopy);
+            toast.success(response.message);
+        } catch (e: any) {
+            console.error(e);
         }
     }
     function getCartTotal() {
@@ -82,7 +92,23 @@ const ShopContextProvider = function (props: { children: React.ReactNode }) {
         }
         return total;
     }
-    function updateCartItem(productId: string, size: string, quantity: number) {
+    async function updateCartItem(productId: string, size: string, quantity: number) {
+        try {
+            const cartItemsCopy = structuredClone(cartItems);
+            if (quantity < 1) {
+                delete cartItemsCopy[productId][size];
+                if (Object.keys(cartItemsCopy[productId]).length === 0) {
+                    delete cartItemsCopy[productId];
+                }
+            } else {
+                cartItemsCopy[productId][size] = quantity;
+            }
+            await updateQuantity({ productId, size, quantity });
+            setCartItems(cartItemsCopy);
+            toast.success('数量更新成功');
+        } catch (e) {
+            console.error(e);
+        }
         const cartItemsCopy = structuredClone(cartItems);
         if (quantity < 1) {
             delete cartItemsCopy[productId][size];
@@ -125,6 +151,7 @@ const ShopContextProvider = function (props: { children: React.ReactNode }) {
         getCartTotal,
         updateCartItem,
         getCartAmount,
+        getUserCartData,
         navigate
     };
     return <ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>;
