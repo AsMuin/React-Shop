@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from 'react';
 import { products } from '@/assets/assets';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { addProductToCart } from '@/api/product';
 export interface ProductItem {
     _id: string;
     name: string;
@@ -39,9 +40,10 @@ const ShopContextProvider = function (props: { children: React.ReactNode }) {
     const [search, setSearch] = useState('');
     const [showSearch, setShowSearch] = useState(true);
     const [cartItems, setCartItems] = useState<any>({});
+    const [token, setToken] = useState('');
     const navigate = useNavigate();
 
-    function addToCart(productId: string, size: string) {
+    async function addToCart(productId: string, size: string) {
         if (!size) {
             toast.error('Please select a size');
             return;
@@ -57,6 +59,13 @@ const ShopContextProvider = function (props: { children: React.ReactNode }) {
             cartItemsCopy[productId] = { [size]: 1 };
         }
         setCartItems(cartItemsCopy);
+        if (token) {
+            try {
+                await addProductToCart({ productId, size });
+            } catch (e: any) {
+                toast.error(e.message);
+            }
+        }
     }
     function getCartTotal() {
         let total = 0;
