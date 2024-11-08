@@ -1,5 +1,5 @@
 import request from '.';
-const BASEURL = 'user';
+const BASEURL = '/user';
 function login({ email, password }: { email: string; password: string }) {
     return request({ url: `${BASEURL}/login`, method: 'POST', data: { email, password } });
 }

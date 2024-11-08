@@ -13,12 +13,11 @@ const Axios = axios.create({
 });
 Axios.interceptors.request.use(
     config => {
-        if (config.url === 'user/login') {
+        if (config.url === '/user/login') {
             return config;
         } else {
             const token = localStorage.getItem('token');
             if (!token) {
-                toast.warn('请先登录', { progress: 1 });
                 setTimeout(() => {
                     window.location.href = '/login';
                 }, 2500);
