@@ -1,30 +1,32 @@
 import { assets } from '@/assets/assets';
 import CartTotal from '@/components/CartTotal';
 import Title from '@/components/Title';
+import { SIZE_TYPE } from '@/context/ShopContext';
 import { useShopContext } from '@/hook/context';
 import { useEffect, useState } from 'react';
 interface CartItem {
     _id: string;
-    size: string;
+    size: SIZE_TYPE;
     quantity: number;
 }
 export default function Cart() {
     const { products, currency, cartItems, navigate, updateCartItem } = useShopContext();
     const [cartData, setCartData] = useState<CartItem[]>([]);
     useEffect(() => {
-        const cartDataCopy = [];
-        for (const cartItem in cartItems) {
-            for (const size in cartItems[cartItem]) {
-                cartDataCopy.push({
-                    _id: cartItem,
-                    size,
-                    quantity: cartItems[cartItem][size]
-                });
+        if (products.length > 0) {
+            const cartDataCopy = [];
+            for (const cartItem in cartItems) {
+                for (const size in cartItems[cartItem]) {
+                    cartDataCopy.push({
+                        _id: cartItem,
+                        size: size as SIZE_TYPE,
+                        quantity: cartItems[cartItem][size as SIZE_TYPE] ?? 0
+                    });
+                }
             }
+            setCartData(cartDataCopy);
         }
-        console.log(cartDataCopy);
-        setCartData(cartDataCopy);
-    }, [cartItems]);
+    }, [cartItems, products]);
     return (
         <>
             <div className="border-t pt-14">

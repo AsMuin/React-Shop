@@ -3,6 +3,7 @@ import { products } from '@/assets/assets';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { addProductToCart, getUserCart, updateQuantity } from '@/api/cart';
+export type SIZE_TYPE = 'S' | 'M' | 'L' | 'XL' | 'XXL';
 export interface ProductItem {
     _id: string;
     name: string;
@@ -15,6 +16,11 @@ export interface ProductItem {
     date: number;
     bestseller: boolean;
 }
+export interface CartData {
+    [key: string]: {
+        [key in SIZE_TYPE]: number;
+    };
+}
 export const ShopContext = createContext<
     | {
           products: ProductItem[];
@@ -24,7 +30,8 @@ export const ShopContext = createContext<
           setSearch: React.Dispatch<React.SetStateAction<string>>;
           showSearch: boolean;
           setShowSearch: React.Dispatch<React.SetStateAction<boolean>>;
-          cartItems: any;
+          cartItems: CartData;
+          setCartItems: React.Dispatch<React.SetStateAction<any>>;
           addToCart: (productId: string, size: string) => void;
           getCartTotal: () => number;
           updateCartItem: (productId: string, size: string, quantity: number) => void;
@@ -42,14 +49,15 @@ const ShopContextProvider = function (props: { children: React.ReactNode }) {
     const [showSearch, setShowSearch] = useState(true);
     const [cartItems, setCartItems] = useState<any>({});
     const navigate = useNavigate();
-    // useEffect(() => {
-    //     getUserCartData();
-    // }, []);
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            getUserCartData();
+        }
+    }, []);
     async function getUserCartData() {
         try {
             const response = await getUserCart();
             setCartItems(response.data);
-            console.log('response', response);
         } catch (e) {
             console.error(e);
         }
@@ -109,16 +117,6 @@ const ShopContextProvider = function (props: { children: React.ReactNode }) {
         } catch (e) {
             console.error(e);
         }
-        const cartItemsCopy = structuredClone(cartItems);
-        if (quantity < 1) {
-            delete cartItemsCopy[productId][size];
-            if (Object.keys(cartItemsCopy[productId]).length === 0) {
-                delete cartItemsCopy[productId];
-            }
-        } else {
-            cartItemsCopy[productId][size] = quantity;
-        }
-        setCartItems(cartItemsCopy);
     }
     function getCartAmount() {
         let totalAmount = 0;
@@ -147,6 +145,7 @@ const ShopContextProvider = function (props: { children: React.ReactNode }) {
         showSearch,
         setShowSearch,
         cartItems,
+        setCartItems,
         addToCart,
         getCartTotal,
         updateCartItem,

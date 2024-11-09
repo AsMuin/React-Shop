@@ -27,8 +27,6 @@ export default function Collection() {
         }
     }
     useEffect(() => {
-        console.log(category);
-        console.log(subCategory);
         let filteredProducts = products?.slice();
         if (showSearch && search) {
             filteredProducts = filteredProducts?.filter(product => product.name.toLowerCase().includes(search.toLowerCase()));

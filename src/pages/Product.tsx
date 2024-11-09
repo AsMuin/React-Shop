@@ -14,13 +14,11 @@ export default function Product() {
         if (productId) {
             const product = products?.find(product => product._id === productId);
             if (product) {
-                console.log(product);
                 setProductData(product);
                 setImage(product.image[0]);
             }
         }
     }, [productId, products]);
-    console.log(productId);
     return productData ? (
         <>
             <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
