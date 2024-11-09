@@ -1,9 +1,11 @@
+import { postOrder } from '@/api/order';
 import { assets } from '@/assets/assets';
 import CartTotal from '@/components/CartTotal';
 import Title from '@/components/Title';
 import { SIZE_TYPE } from '@/context/ShopContext';
 import { useShopContext } from '@/hook/context';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 export default function PlaceOrder() {
     const [method, setMethod] = useState('cod');
@@ -21,7 +23,7 @@ export default function PlaceOrder() {
     function onChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
         setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
     }
-    function onSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
+    async function onSubmitHandler(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         console.log(formData);
         try {
@@ -37,6 +39,31 @@ export default function PlaceOrder() {
                     }
                 }
             }
+            const orderData = {
+                address: formData,
+                items: orderItemList,
+                amount: getCartAmount() + delivery_fee
+            };
+            switch (method) {
+                case 'cod': {
+                    await postOrder(orderData);
+                    break;
+                }
+                case 'razorpay': {
+                    await postOrder(orderData);
+                    break;
+                }
+                case 'stripe': {
+                    await postOrder(orderData);
+                    break;
+                }
+                default: {
+                    break;
+                }
+            }
+            setCartItems({});
+            toast.success('下单成功');
+            navigate('/orders');
             console.log(orderItemList);
         } catch (e) {
             console.error(e);
