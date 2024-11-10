@@ -30,7 +30,7 @@ export default function Cart() {
     return (
         <>
             <div className="border-t pt-14">
-                <div className="text-center mb-3">
+                <div className="mb-3 text-center">
                     <Title text1={'YOUR'} text2={'CART'} />
                 </div>
                 <div className="">
@@ -39,17 +39,17 @@ export default function Cart() {
                         return (
                             <div
                                 key={index}
-                                className="py-4 border-t border-b text-gray-700 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4">
+                                className="grid grid-cols-[4fr_0.5fr_0.5fr] items-center gap-4 border-b border-t py-4 text-gray-700 sm:grid-cols-[4fr_2fr_0.5fr]">
                                 <div className="flex items-start gap-6">
                                     <img className="w-16 sm:w-20" src={productData?.image[0]} alt="" />
                                     <div>
-                                        <p className="text-xs sm:text-lg font-medium">{productData?.name}</p>
-                                        <div className="flex items-center gap-5 mt-2">
+                                        <p className="text-xs font-medium sm:text-lg">{productData?.name}</p>
+                                        <div className="mt-2 flex items-center gap-5">
                                             <p>
                                                 {currency}
                                                 {productData?.price}
                                             </p>
-                                            <p className="px-2 sm:px-3 sm:py-1 border bg-slate-50">{cartItem.size}</p>
+                                            <p className="border bg-slate-50 px-2 sm:px-3 sm:py-1">{cartItem.size}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -61,14 +61,14 @@ export default function Cart() {
                                         }
                                     }}
                                     value={cartItem.quantity}
-                                    className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1 "
+                                    className="max-w-10 border px-1 py-1 sm:max-w-20 sm:px-2"
                                     type="number"
                                 />
                                 <img
                                     onClick={() => {
                                         updateCartItem!(cartItem._id, cartItem.size, 0);
                                     }}
-                                    className="w-4 mr-4 sm:w-5 cursor-pointer"
+                                    className="mr-4 w-4 cursor-pointer sm:w-5"
                                     src={assets.bin_icon}
                                     alt=""
                                 />
@@ -76,11 +76,11 @@ export default function Cart() {
                         );
                     })}
                 </div>
-                <div className="flex justify-end my-20">
+                <div className="my-20 flex justify-end">
                     <div className="w-full sm:w-[450px]">
                         <CartTotal />
                         <div className="w-full text-end">
-                            <button onClick={() => navigate!('/placeorder')} className="bg-black text-white text-sm my-8 py-3 px-8">
+                            <button onClick={() => navigate!('/placeorder')} className="my-8 bg-black px-8 py-3 text-sm text-white">
                                 PROCEED TP CHECKOUT
                             </button>
                         </div>

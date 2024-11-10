@@ -5,11 +5,11 @@ export default function ProductItem({ id, name, price, image }: { id: string; na
     const { currency } = useShopContext();
     return (
         <>
-            <Link className="text-gray-700 cursor-pointer" to={`/product/${id}`}>
-                <div className="overflow-hidden ">
-                    <img className="hover:scale-110 transition ease-in-out" src={image[0]} alt="" />
+            <Link className="cursor-pointer text-gray-700" to={`/product/${id}`}>
+                <div className="overflow-hidden">
+                    <img className="transition ease-in-out hover:scale-110" src={image[0]} alt="" />
                 </div>
-                <p className="pt-3 pb-1 text-sm">{name}</p>
+                <p className="pb-1 pt-3 text-sm">{name}</p>
                 <p className="text-sm font-medium">
                     {currency} {price}
                 </p>

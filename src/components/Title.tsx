@@ -1,12 +1,12 @@
 export default function Title({ text1, text2 }: { text1: string; text2: string }) {
     return (
         <>
-            <div className="inline-flex gap-2 items-center mb-3">
-                <p className="text-gray-500 ">
+            <div className="mb-3 inline-flex items-center gap-2">
+                <p className="text-gray-500">
                     {text1}
-                    <span className="text-gray-700 font-medium ml-1">{text2}</span>
+                    <span className="ml-1 font-medium text-gray-700">{text2}</span>
                 </p>
-                <p className="w-8 sm:w-12 h-[1px] sm:h-[2px] bg-gray-700"></p>
+                <p className="h-[1px] w-8 bg-gray-700 sm:h-[2px] sm:w-12"></p>
             </div>
         </>
     );

@@ -5,12 +5,12 @@ import Title from '@/components/Title';
 export default function About() {
     return (
         <>
-            <div className="text-2xl text-center pt-8 border-t">
+            <div className="border-t pt-8 text-center text-2xl">
                 <Title text1="ABOUT" text2="US" />
             </div>
-            <div className="my-10 flex flex-col md:flex-row gap-16">
+            <div className="my-10 flex flex-col gap-16 md:flex-row">
                 <img className="w-full md:max-w-[450px]" src={assets.about_img} alt="" />
-                <div className="flex flex-col justify-center gap-6 md:w-2/4 text-gray-600">
+                <div className="flex flex-col justify-center gap-6 text-gray-600 md:w-2/4">
                     <p>
                         Forever was born out of the need for a simple and affordable e-commerce platform that can be easily managed by non-technical
                         the way that businesses need. We are a team of developers and designers who are passionate about creating products that are
@@ -30,25 +30,25 @@ export default function About() {
                     </p>
                 </div>
             </div>
-            <div className="text-xl py-4 ">
+            <div className="py-4 text-xl">
                 <Title text1="WHY" text2="CHOOSE US" />
             </div>
-            <div className="flex flex-col md:flex-row text-sm mb-20">
-                <div className="border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5">
+            <div className="mb-20 flex flex-col text-sm md:flex-row">
+                <div className="flex flex-col gap-5 border px-10 py-8 sm:py-20 md:px-16">
                     <b>Quality Assurance</b>
                     <p className="text-gray-600">
                         We have a team of experienced developers and designers who are dedicated to providing the best possible service to our clients
                         and business partners. We have a rigorous testing process to ensure that our products meet the highest standards of quality.
                     </p>
                 </div>{' '}
-                <div className="border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5">
+                <div className="flex flex-col gap-5 border px-10 py-8 sm:py-20 md:px-16">
                     <b>Convenience:</b>
                     <p className="text-gray-600">
                         With our easy-to-use platform, you can shop from anywhere, anytime, and on any device. You can access your orders, track your
                         deliveries, and manage your account all from your smartphone or computer.
                     </p>
                 </div>
-                <div className="border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5">
+                <div className="flex flex-col gap-5 border px-10 py-8 sm:py-20 md:px-16">
                     <b>Exceptional Customer Service</b>
                     <p className="text-gray-600">
                         Our team of customer service representatives are available to assist you with any questions or concerns you may have about

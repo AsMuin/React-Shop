@@ -16,10 +16,10 @@ export default function RelatedProducts({ category, subCategory }: { category: s
     return (
         <>
             <div className="my-24">
-                <div className="text-center text-3xl py-2">
+                <div className="py-2 text-center text-3xl">
                     <Title text1={'RELATED'} text2={'PRODUCTS'} />
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
+                <div className="grid grid-cols-2 gap-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                     {related.map((product, index) => (
                         <ProductItem key={index} id={product._id} name={product.name} price={product.price} image={product.image} />
                     ))}
