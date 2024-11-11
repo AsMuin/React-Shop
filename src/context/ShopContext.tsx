@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from 'react';
-import { products } from '@/assets/assets';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { addProductToCart, getUserCart, updateQuantity } from '@/api/cart';
+import { getProductList } from '@/api/product';
 export type SIZE_TYPE = 'S' | 'M' | 'L' | 'XL' | 'XXL';
 export interface ProductItem {
     _id: string;
@@ -48,12 +48,22 @@ const ShopContextProvider = function (props: { children: React.ReactNode }) {
     const [search, setSearch] = useState('');
     const [showSearch, setShowSearch] = useState(true);
     const [cartItems, setCartItems] = useState<any>({});
+    const [products, setProducts] = useState<ProductItem[]>([]);
     const navigate = useNavigate();
     useEffect(() => {
         if (localStorage.getItem('token')) {
             getUserCartData();
+            fetchProductList();
         }
     }, []);
+    async function fetchProductList() {
+        try {
+            const response = await getProductList<ProductItem[]>();
+            setProducts(response.data!);
+        } catch (e) {
+            console.error(e);
+        }
+    }
     async function getUserCartData() {
         try {
             const response = await getUserCart();
