@@ -1,4 +1,4 @@
-import { postOrder } from '@/api/order';
+import { postOrder, stripeOrder } from '@/api/order';
 import { assets } from '@/assets/assets';
 import CartTotal from '@/components/CartTotal';
 import Title from '@/components/Title';
@@ -47,6 +47,9 @@ export default function PlaceOrder() {
             switch (method) {
                 case 'cod': {
                     await postOrder(orderData);
+                    toast.success('下单成功');
+                    navigate('/orders');
+                    setCartItems({});
                     break;
                 }
                 case 'razorpay': {
@@ -54,16 +57,20 @@ export default function PlaceOrder() {
                     break;
                 }
                 case 'stripe': {
-                    await postOrder(orderData);
+                    const responseStripe = await stripeOrder<string>(orderData);
+                    if (responseStripe.success) {
+                        console.log(responseStripe);
+                        toast.success('下单成功,即将跳转支付页面');
+                        setTimeout(() => {
+                            window.location.replace(responseStripe.data!);
+                        }, 2500);
+                    }
                     break;
                 }
                 default: {
                     break;
                 }
             }
-            setCartItems({});
-            toast.success('下单成功');
-            navigate('/orders');
             console.log(orderItemList);
         } catch (e) {
             console.error(e);
