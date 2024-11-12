@@ -1,4 +1,3 @@
-import { getUserCart } from '@/api/cart';
 import { getUserOrderList } from '@/api/order';
 import Title from '@/components/Title';
 import { useShopContext } from '@/hook/context';
@@ -29,7 +28,7 @@ interface IOderDataItem extends API_OrderItem {
     paymentMethod: string;
 }
 export default function Orders() {
-    const { products, currency } = useShopContext();
+    const { currency } = useShopContext();
     const [orderData, setOrderData] = useState<IOderDataItem[]>([]);
     useEffect(() => {
         getOrderData();
@@ -38,18 +37,16 @@ export default function Orders() {
         try {
             const response = await getUserOrderList<API_OrderData[]>();
             console.log(response);
-            if (response.success) {
-                const newOrderData = response.data!.flatMap(order =>
-                    order.items.map(item => ({
-                        ...item,
-                        status: order.status,
-                        payment: order.payment,
-                        paymentMethod: order.paymentMethod
-                    }))
-                );
-                console.log(newOrderData);
-                setOrderData(newOrderData);
-            }
+            const newOrderData = response.data!.flatMap(order =>
+                order.items.map(item => ({
+                    ...item,
+                    status: order.status,
+                    payment: order.payment,
+                    paymentMethod: order.paymentMethod
+                }))
+            );
+            console.log(newOrderData);
+            setOrderData(newOrderData);
         } catch (e) {
             console.error(e);
         }

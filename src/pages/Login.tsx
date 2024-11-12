@@ -16,7 +16,7 @@ export default function Login() {
         try {
             if (currentState === 'Login') {
                 const response = await login({ email, password });
-                if (response.token && response.success) {
+                if (response.token) {
                     setName('');
                     setEmail('');
                     setPassword('');
@@ -26,12 +26,10 @@ export default function Login() {
                 }
             } else {
                 const response = await register({ name, email, password });
-                if (response.success) {
-                    setName('');
-                    setEmail('');
-                    setPassword('');
-                    setCurrentState('Login');
-                }
+                setName('');
+                setEmail('');
+                setPassword('');
+                setCurrentState('Login');
                 toast.success(response.message);
             }
         } catch (error) {

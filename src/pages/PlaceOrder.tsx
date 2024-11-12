@@ -52,19 +52,13 @@ export default function PlaceOrder() {
                     setCartItems({});
                     break;
                 }
-                case 'razorpay': {
-                    await postOrder(orderData);
-                    break;
-                }
                 case 'stripe': {
                     const responseStripe = await stripeOrder<string>(orderData);
-                    if (responseStripe.success) {
-                        console.log(responseStripe);
-                        toast.success('下单成功,即将跳转支付页面');
-                        setTimeout(() => {
-                            window.location.replace(responseStripe.data!);
-                        }, 2500);
-                    }
+                    console.log(responseStripe);
+                    toast.success('下单成功,即将跳转支付页面');
+                    setTimeout(() => {
+                        window.location.replace(responseStripe.data!);
+                    }, 2500);
                     break;
                 }
                 default: {
@@ -170,10 +164,6 @@ export default function PlaceOrder() {
                             <div onClick={() => setMethod('stripe')} className="flex cursor-pointer items-center gap-3 border p-2 px-3">
                                 <p className={`h-3.5 min-w-3.5 rounded-full border ${method === 'stripe' ? 'bg-green-400' : ''}`}></p>
                                 <img className="mx-4 h-5" src={assets.stripe_logo} alt="" />
-                            </div>
-                            <div onClick={() => setMethod('razorpay')} className="flex cursor-pointer items-center gap-3 border p-2 px-3">
-                                <p className={`h-3.5 min-w-3.5 rounded-full border ${method === 'razorpay' ? 'bg-green-400' : ''}`}></p>
-                                <img className="mx-4 h-5" src={assets.razorpay_logo} alt="" />
                             </div>
                             <div onClick={() => setMethod('cod')} className="flex cursor-pointer items-center gap-3 border p-2 px-3">
                                 <p className={`h-3.5 min-w-3.5 rounded-full border ${method === 'cod' ? 'bg-green-400' : ''}`}></p>
