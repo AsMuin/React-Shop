@@ -10,7 +10,7 @@ interface CartItem {
     quantity: number;
 }
 export default function Cart() {
-    const { products, currency, cartItems, navigate, updateCartItem } = useShopContext();
+    const { products, currency, cartItems, navigate, updateCartItem, getUserCartData } = useShopContext();
     const [cartData, setCartData] = useState<CartItem[]>([]);
     useEffect(() => {
         if (products.length > 0) {
@@ -27,6 +27,9 @@ export default function Cart() {
             setCartData(cartDataCopy);
         }
     }, [cartItems, products]);
+    useEffect(() => {
+        getUserCartData();
+    }, []);
     return (
         <>
             <div className="border-t pt-14">

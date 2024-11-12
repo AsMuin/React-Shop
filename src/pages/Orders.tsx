@@ -45,7 +45,6 @@ export default function Orders() {
                     paymentMethod: order.paymentMethod
                 }))
             );
-            console.log(newOrderData);
             setOrderData(newOrderData);
         } catch (e) {
             console.error(e);

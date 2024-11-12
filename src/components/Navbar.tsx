@@ -4,13 +4,24 @@ import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 export default function Navbar() {
     const [visible, setVisible] = useState(false);
-    const { setShowSearch, getCartTotal, navigate } = useShopContext();
+    const { setShowSearch, getCartTotal, navigate, setCartItems } = useShopContext();
     const links = [
         { name: 'Home', path: '/' },
         { name: 'Collection', path: '/collection' },
         { name: 'About', path: '/about' },
         { name: 'Contact', path: '/contact' }
     ];
+    function logoutORlogin() {
+        if (localStorage.getItem('token')) {
+            localStorage.removeItem('token');
+            setCartItems({});
+        }
+        navigate('/login');
+    }
+    function handleSearch() {
+        setShowSearch(true);
+        navigate('/collection');
+    }
     return (
         <>
             <div className="flex items-center justify-between py-5 font-medium">
@@ -26,18 +37,18 @@ export default function Navbar() {
                     ))}
                 </ul>
                 <div className="flex items-center gap-6">
-                    <img onClick={() => setShowSearch!(true)} src={assets.search_icon} className="w-5 cursor-pointer" alt="search" />
+                    <img onClick={handleSearch} src={assets.search_icon} className="w-5 cursor-pointer" alt="search" />
                     <div className="group relative">
-                        <Link to={'/login'}>
-                            <img src={assets.profile_icon} alt="profile" className="w-5 cursor-pointer" />
-                        </Link>
+                        <img src={assets.profile_icon} alt="profile" className="w-5 cursor-pointer" />
                         <div className="dropdown-menu absolute right-0 hidden pt-4 group-hover:block">
                             <div className="flex w-36 flex-col gap-2 rounded bg-slate-100 px-5 py-3 text-gray-500">
                                 <p className="cursor-pointer hover:text-black">My Profile</p>
                                 <p onClick={() => navigate('/orders')} className="cursor-pointer hover:text-black">
-                                    Orders
+                                    订单详情
                                 </p>
-                                <p className="cursor-pointer hover:text-black">Logout</p>
+                                <p onClick={logoutORlogin} className={`cursor-pointer hover:text-black`}>
+                                    {localStorage.getItem('token') ? '登出' : '登录'}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -47,7 +58,7 @@ export default function Navbar() {
                             {getCartTotal!()}
                         </p>
                     </Link>
-                    <img onClick={() => setVisible(true)} src={assets.menu_icon} className="w-5 cursor-pointer sm:hidden" alt="" />
+                    <img onClick={handleSearch} src={assets.menu_icon} className="w-5 cursor-pointer sm:hidden" alt="" />
                 </div>
                 <div className={`absolute bottom-0 right-0 top-0 overflow-hidden bg-white transition-all ${visible ? 'w-full' : 'w-0'}`}>
                     <div className="flex cursor-pointer flex-col text-gray-600">
