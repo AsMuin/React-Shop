@@ -42,7 +42,11 @@ export default function Navbar() {
                         <img src={assets.profile_icon} alt="profile" className="w-5 cursor-pointer" />
                         <div className="dropdown-menu absolute right-0 hidden pt-4 group-hover:block">
                             <div className="flex w-36 flex-col gap-2 rounded bg-slate-100 px-5 py-3 text-gray-500">
-                                <p onClick={()=>navigate('/profile')} className={`cursor-pointer hover:text-black ${localStorage.getItem('token')? '':'hidden'}`}>个人详情</p>
+                                <p
+                                    onClick={() => navigate('/profile')}
+                                    className={`cursor-pointer hover:text-black ${localStorage.getItem('token') ? '' : 'hidden'}`}>
+                                    个人详情
+                                </p>
                                 <p onClick={() => navigate('/orders')} className="cursor-pointer hover:text-black">
                                     订单详情
                                 </p>
@@ -58,7 +62,7 @@ export default function Navbar() {
                             {getCartTotal!()}
                         </p>
                     </Link>
-                    <img onClick={()=>setVisible(true)} src={assets.menu_icon} className="w-5 cursor-pointer sm:hidden" alt="" />
+                    <img onClick={() => setVisible(true)} src={assets.menu_icon} className="w-5 cursor-pointer sm:hidden" alt="" />
                 </div>
                 <div className={`absolute bottom-0 right-0 top-0 overflow-hidden bg-white transition-all ${visible ? 'w-full' : 'w-0'}`}>
                     <div className="flex cursor-pointer flex-col text-gray-600">
