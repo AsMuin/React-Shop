@@ -12,7 +12,7 @@ export default function CartTotal() {
                 </div>
                 <div className="mt-2 flex flex-col gap-2 text-sm">
                     <div className="flex justify-between">
-                        <p>Subtotal</p>
+                        <p>小计</p>
                         <p>
                             {currency}
                             {getCartAmount!() || 0}.00
@@ -20,7 +20,7 @@ export default function CartTotal() {
                     </div>
                     <hr />
                     <div className="flex justify-between">
-                        <p>Shipping</p>
+                        <p>配送</p>
                         <p>
                             {currency}
                             {delivery_fee || 0}.00
@@ -28,7 +28,7 @@ export default function CartTotal() {
                     </div>
                     <hr />
                     <div className="flex justify-between">
-                        <b>Total</b>
+                        <b>共计</b>
                         <b>
                             {currency}
                             {getCartAmount!() + delivery_fee! || 0}.00

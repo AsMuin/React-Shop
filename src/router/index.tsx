@@ -47,6 +47,10 @@ const router = createBrowserRouter([
                 Component: lazy(() => import('@/pages/Contact'))
             },
             {
+                path: 'profile',
+                Component: lazy(() => import('@/pages/Profile'))
+            },
+            {
                 path: 'verify',
                 Component: lazy(() => import('@/pages/Verify'))
             }

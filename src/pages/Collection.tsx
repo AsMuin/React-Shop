@@ -65,36 +65,36 @@ export default function Collection() {
                         <img className={`h-3 sm:hidden ${showFilters ? 'rotate-90' : ''}`} src={assets.dropdown_icon} alt="" />
                     </p>
                     <div className={`mt-6 border border-gray-300 py-3 pl-5 ${showFilters ? '' : 'hidden'} sm:block`}>
-                        <p className="mb-3 text-sm font-medium">CATEGORIES</p>
+                        <p className="mb-3 text-sm font-medium">用户人群</p>
                         <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
                             <p className="flex gap-2">
                                 <input className="w-3" type="checkbox" value={'Men'} onChange={toggleCategory} />
-                                Men
+                                男装
                             </p>
                             <p className="flex gap-2">
                                 <input className="w-3" type="checkbox" value={'Women'} onChange={toggleCategory} />
-                                Women
+                                女装
                             </p>
                             <p className="flex gap-2">
                                 <input className="w-3" type="checkbox" value={'Kids'} onChange={toggleCategory} />
-                                Kids
+                                童装
                             </p>
                         </div>
                     </div>
                     <div className={`my-5 border border-gray-300 py-3 pl-5 ${showFilters ? '' : 'hidden'} sm:block`}>
-                        <p className="mb-3 text-sm font-medium">TYPE</p>
+                        <p className="mb-3 text-sm font-medium">服装类型</p>
                         <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
                             <p className="flex gap-2">
                                 <input className="w-3" type="checkbox" value={'Topwear'} onChange={toggleSubCategory} />
-                                Topwear
+                                上衣
                             </p>
                             <p className="flex gap-2">
                                 <input className="w-3" type="checkbox" value={'Bottomwear'} onChange={toggleSubCategory} />
-                                Bottomwear
+                                下装
                             </p>
                             <p className="flex gap-2">
                                 <input className="w-3" type="checkbox" value={'Winterwear'} onChange={toggleSubCategory} />
-                                Winterwear
+                                冬装
                             </p>
                         </div>
                     </div>
@@ -104,9 +104,9 @@ export default function Collection() {
                 <div className="mb-4 flex justify-between text-base sm:text-2xl">
                     <Title text1={'ALL'} text2={'COLLECTIONS'} />
                     <select onChange={event => setSortType(event.target.value)} className="border-2 border-gray-300 px-2 text-sm">
-                        <option value="relevant">Sort by: Relevance</option>
-                        <option value="low-high">Sort by: Price: Low to High</option>
-                        <option value="high-low">Sort by: Price: High to Low</option>
+                        <option value="relevant">相关性：</option>
+                        <option value="low-high">价格：低到高</option>
+                        <option value="high-low">价格：高到低</option>
                     </select>
                 </div>
                 <div className="grid grid-cols-2 gap-4 gap-y-6 md:grid-cols-3 lg:grid-cols-4">

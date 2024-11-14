@@ -11,10 +11,10 @@ export default function Contact() {
             <div className="my-10 mb-28 flex flex-col justify-center gap-10 md:flex-row">
                 <img className="w-full md:max-w-[480px]" src={assets.contact_img} alt="" />
                 <div className="flex flex-col items-start justify-center gap-6">
-                    <p className="text-xl font-semibold text-gray-600">Our Store</p>
+                    <p className="text-xl font-semibold text-gray-600">店铺地址</p>
                     <p className="text-gray-500">
-                        54709 Willms Station <br />
-                        SUITE 350, Washington, USA
+                        翻斗花园二号楼一零零一室<br />
+                        Shen zheng, Guangdong, China
                     </p>
                     <p className="text-gray-500">
                         Tel:(256) 897-0123
@@ -22,9 +22,9 @@ export default function Contact() {
                         Email: asmuins@foxmail.com
                     </p>
                     <p className="text-xl font-semibold text-gray-600">Careers at Forever</p>
-                    <p className="text-gray-500">Learn more about our teams and job openings</p>
+                    <p className="text-gray-500">了解更多关于我们的团队</p>
                     <button className="translate-all border border-black px-8 py-4 text-sm duration-500 hover:bg-black hover:text-white">
-                        Explore Jobs
+                        加入我们
                     </button>
                 </div>
             </div>

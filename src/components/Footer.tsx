@@ -14,23 +14,23 @@ export default function Footer() {
                 <div>
                     <p className="mb-5 text-xl font-medium">COMPANY</p>
                     <ul className="flex flex-col gap-1 text-gray-600">
-                        <li>Home</li>
-                        <li>About us</li>
-                        <li>Delivery</li>
-                        <li>Privacy policy</li>
+                        <li>首页</li>
+                        <li>关于我们</li>
+                        <li>配送</li>
+                        <li>隐私策略</li>
                     </ul>
                 </div>
                 <div>
                     <p className="mb-5 text-xl font-medium">GET IN TOUCH</p>
                     <ul className="flex flex-col gap-1 text-gray-600">
-                        <li>+86-137-988-16552</li>
+                        <li>+86-133-123-12345</li>
                         <li>asmuins@foxmail.com</li>
                     </ul>
                 </div>
             </div>
             <div>
                 <hr />
-                <p className="py-5 text-center text-sm"> Copyright 2024@ forever.com - All Right Reserved</p>
+                <p className="py-5 text-center text-sm"> Copyright 2024@ react-shop.com - All Right Reserved</p>
             </div>
         </>
     );

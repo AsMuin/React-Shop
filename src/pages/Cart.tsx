@@ -84,7 +84,7 @@ export default function Cart() {
                         <CartTotal />
                         <div className="w-full text-end">
                             <button onClick={() => navigate!('/placeorder')} className="my-8 bg-black px-8 py-3 text-sm text-white">
-                                PROCEED TP CHECKOUT
+                            结账
                             </button>
                         </div>
                     </div>

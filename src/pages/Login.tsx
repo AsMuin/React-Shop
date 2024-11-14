@@ -71,18 +71,18 @@ export default function Login() {
                     required
                 />
                 <div className="mt-[-8px] flex w-full justify-between text-sm">
-                    <p className="cursor-pointer">Forgot your password?</p>
+                    <p className="cursor-pointer">忘记你的密码?</p>
                     {currentState === 'Login' ? (
-                        <p onClick={() => setCurrentState('Sign Up')} className="cursor-pointer">
-                            Create account
+                        <p onClick={() => setCurrentState('Sign Up')} className="cursor-pointer  text-gray-500">
+                            现在就创建账户
                         </p>
                     ) : (
-                        <p onClick={() => setCurrentState('Login')} className="cursor-pointer">
-                            Login Here
+                        <p onClick={() => setCurrentState('Login')} className="cursor-pointer text-gray-500">
+                            点击这里登录
                         </p>
                     )}
                 </div>
-                <button className="mt-4 bg-black px-8 py-2 font-light text-white">{currentState === 'Login' ? 'Sign In' : 'Sign Up'}</button>
+                <button className="mt-4 bg-black px-8 py-2 font-light text-white">{currentState === 'Login' ? '登录' : '注册'}</button>
             </form>
         </>
     );

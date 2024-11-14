@@ -167,7 +167,7 @@ export default function PlaceOrder() {
                             </div>
                             <div onClick={() => setMethod('cod')} className="flex cursor-pointer items-center gap-3 border p-2 px-3">
                                 <p className={`h-3.5 min-w-3.5 rounded-full border ${method === 'cod' ? 'bg-green-400' : ''}`}></p>
-                                <p className="mx-4 text-sm font-medium text-gray-500">CASH ON DELIVERY</p>
+                                <p className="mx-4 text-sm font-medium text-gray-500">现金支付</p>
                             </div>
                         </div>
                         <div className="mt-8 w-full text-end">

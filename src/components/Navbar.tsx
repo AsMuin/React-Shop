@@ -6,10 +6,10 @@ export default function Navbar() {
     const [visible, setVisible] = useState(false);
     const { setShowSearch, getCartTotal, navigate, setCartItems } = useShopContext();
     const links = [
-        { name: 'Home', path: '/' },
-        { name: 'Collection', path: '/collection' },
-        { name: 'About', path: '/about' },
-        { name: 'Contact', path: '/contact' }
+        { name: '首页', path: '/' },
+        { name: '商品', path: '/collection' },
+        { name: '关于我们', path: '/about' },
+        { name: '加入我们', path: '/contact' }
     ];
     function logoutORlogin() {
         if (localStorage.getItem('token')) {
@@ -42,7 +42,7 @@ export default function Navbar() {
                         <img src={assets.profile_icon} alt="profile" className="w-5 cursor-pointer" />
                         <div className="dropdown-menu absolute right-0 hidden pt-4 group-hover:block">
                             <div className="flex w-36 flex-col gap-2 rounded bg-slate-100 px-5 py-3 text-gray-500">
-                                <p className="cursor-pointer hover:text-black">My Profile</p>
+                                <p onClick={()=>navigate('/profile')} className={`cursor-pointer hover:text-black ${localStorage.getItem('token')? '':'hidden'}`}>个人详情</p>
                                 <p onClick={() => navigate('/orders')} className="cursor-pointer hover:text-black">
                                     订单详情
                                 </p>
@@ -58,13 +58,12 @@ export default function Navbar() {
                             {getCartTotal!()}
                         </p>
                     </Link>
-                    <img onClick={handleSearch} src={assets.menu_icon} className="w-5 cursor-pointer sm:hidden" alt="" />
+                    <img onClick={()=>setVisible(true)} src={assets.menu_icon} className="w-5 cursor-pointer sm:hidden" alt="" />
                 </div>
                 <div className={`absolute bottom-0 right-0 top-0 overflow-hidden bg-white transition-all ${visible ? 'w-full' : 'w-0'}`}>
                     <div className="flex cursor-pointer flex-col text-gray-600">
                         <div onClick={() => setVisible(false)} className="flex items-center gap-4 p-3">
                             <img src={assets.dropdown_icon} className="h-4 rotate-180" alt="" />
-                            <p>Back</p>
                         </div>
                         {links.map(link => (
                             <NavLink key={link.name} onClick={() => setVisible(false)} to={link.path} className="border py-2 pl-6">
