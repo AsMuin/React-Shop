@@ -1,20 +1,34 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-
+import { updatePassword } from '@/api/user';
 function UpdatePassword() {
     const [form, setForm] = useState({
-        email: '',
+        originalPassword: '',
         password: '',
         confirmPassword: ''
     });
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         if (form.password !== form.confirmPassword) {
             toast.error('两次输入的密码必须相同');
+            return;
         }
-        console.log(form);
-    };
+        try {
+            const response = await updatePassword({
+                originalPassword: form.originalPassword,
+                password: form.password,
+                confirmPassword: form.confirmPassword
+            });
+            toast.success(response.message);
+            setTimeout(() => {
+                localStorage.removeItem('token');
+                window.location.href = '/login';
+            }, 2500);
+        } catch (error) {
+            console.error(error);
+        }
+    }
     function updateFormData(e: React.ChangeEvent<HTMLInputElement>) {
         const { name, value } = e.target;
         setForm(prev => ({ ...prev, [name]: value }));
@@ -26,14 +40,13 @@ function UpdatePassword() {
                     <div className="mb-2 mt-10 inline-flex items-center gap-2">
                         <p className="text-2xl">更改密码</p>
                     </div>
-
                     <input
-                        value={form.email}
+                        value={form.originalPassword}
                         onChange={updateFormData}
-                        type="email"
-                        className="w-full border border-gray-800 px-3 py-2"
-                        placeholder="请输入注册邮箱"
-                        name="email"
+                        type="password"
+                        className="peer w-full border border-gray-800 px-3 py-2"
+                        placeholder="请输入原密码"
+                        name="originalPassword"
                         required
                     />
                     <input
@@ -41,7 +54,7 @@ function UpdatePassword() {
                         onChange={updateFormData}
                         type="password"
                         className="peer w-full border border-gray-800 px-3 py-2"
-                        placeholder="请输入密码"
+                        placeholder="请输入修改后的密码"
                         name="password"
                         required
                     />
@@ -50,7 +63,7 @@ function UpdatePassword() {
                         onChange={updateFormData}
                         type="password"
                         className="peer w-full border border-gray-800 px-3 py-2"
-                        placeholder="请再次输入密码"
+                        placeholder="请再次确认修改后的密码"
                         name="confirmPassword"
                         required
                     />

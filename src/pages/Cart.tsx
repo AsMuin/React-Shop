@@ -1,7 +1,7 @@
 import { assets } from '@/assets/assets';
 import CartTotal from '@/components/CartTotal';
 import Title from '@/components/Title';
-import { SIZE_TYPE } from '@/context/ShopContext';
+import { SIZE_TYPE } from '@/service/context/ShopContext';
 import { useShopContext } from '@/hook/context';
 import { useEffect, useState } from 'react';
 interface CartItem {
@@ -66,6 +66,7 @@ export default function Cart() {
                                     value={cartItem.quantity}
                                     className="max-w-10 border px-1 py-1 sm:max-w-20 sm:px-2"
                                     type="number"
+                                    placeholder="购买数量"
                                 />
                                 <img
                                     onClick={() => {
@@ -84,7 +85,7 @@ export default function Cart() {
                         <CartTotal />
                         <div className="w-full text-end">
                             <button onClick={() => navigate!('/placeorder')} className="my-8 bg-black px-8 py-3 text-sm text-white">
-                            结账
+                                结账
                             </button>
                         </div>
                     </div>

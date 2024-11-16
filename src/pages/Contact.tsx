@@ -13,7 +13,8 @@ export default function Contact() {
                 <div className="flex flex-col items-start justify-center gap-6">
                     <p className="text-xl font-semibold text-gray-600">店铺地址</p>
                     <p className="text-gray-500">
-                        翻斗花园二号楼一零零一室<br />
+                        翻斗花园二号楼一零零一室
+                        <br />
                         Shen zheng, Guangdong, China
                     </p>
                     <p className="text-gray-500">

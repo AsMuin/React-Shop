@@ -73,7 +73,7 @@ export default function Login() {
                 <div className="mt-[-8px] flex w-full justify-between text-sm">
                     <p className="cursor-pointer">忘记你的密码?</p>
                     {currentState === 'Login' ? (
-                        <p onClick={() => setCurrentState('Sign Up')} className="cursor-pointer  text-gray-500">
+                        <p onClick={() => setCurrentState('Sign Up')} className="cursor-pointer text-gray-500">
                             现在就创建账户
                         </p>
                     ) : (

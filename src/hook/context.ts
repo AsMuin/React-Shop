@@ -1,4 +1,4 @@
-import { ShopContext } from '@/context/ShopContext';
+import { ShopContext } from '@/service/context/ShopContext';
 import { useContext } from 'react';
 export const useShopContext = () => {
     const shopContextInfo = useContext(ShopContext);

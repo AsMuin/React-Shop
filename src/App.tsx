@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
 import Navbar from './components/Navbar';
-import ShopContextProvider from './context/ShopContext';
+import ShopContextProvider from './service/context/ShopContext';
 import SearchBar from './components/SearchBar';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

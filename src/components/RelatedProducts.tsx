@@ -1,4 +1,4 @@
-import { ProductItem as ProductItemType } from '@/context/ShopContext';
+import { ProductItem as ProductItemType } from '@/service/context/ShopContext';
 import { useEffect, useState } from 'react';
 import Title from './Title';
 import ProductItem from './ProductItem';

@@ -2,7 +2,7 @@ import { postOrder, stripeOrder } from '@/api/order';
 import { assets } from '@/assets/assets';
 import CartTotal from '@/components/CartTotal';
 import Title from '@/components/Title';
-import { SIZE_TYPE } from '@/context/ShopContext';
+import { SIZE_TYPE } from '@/service/context/ShopContext';
 import { useShopContext } from '@/hook/context';
 import { useState } from 'react';
 import { toast } from 'react-toastify';

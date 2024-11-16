@@ -1,6 +1,6 @@
 import { assets } from '@/assets/assets';
 import RelatedProducts from '@/components/RelatedProducts';
-import { ProductItem } from '@/context/ShopContext';
+import { ProductItem } from '@/service/context/ShopContext';
 import { useShopContext } from '@/hook/context';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
