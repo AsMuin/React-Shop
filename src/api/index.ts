@@ -13,7 +13,7 @@ const Axios = axios.create({
 });
 Axios.interceptors.request.use(
     config => {
-        if (config.url === '/user/login') {
+        if (config.url === '/user/login' || config.url === '/user/register' || config.url === '/product/list') {
             return config;
         } else {
             const token = localStorage.getItem('token');

@@ -1,29 +1,35 @@
-import { login, register } from '@/api/user';
+import { register } from '@/api/user';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { useShopContext } from '@/hook/context';
+// import { useShopContext } from '@/hook/context';
+import { userLogin } from '@/service/store/user';
+import { getUserCartData } from '@/service/store/cart';
+import { useAppDispatch } from '@/service/store';
 export default function Login() {
     const [currentState, setCurrentState] = useState('Sign Up');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { getUserCartData } = useShopContext();
+    // const { getUserCartData } = useShopContext();
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     async function handelSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         console.log('Form submitted');
         try {
             if (currentState === 'Login') {
-                const response = await login({ email, password });
-                if (response.token) {
-                    setName('');
-                    setEmail('');
-                    setPassword('');
-                    getUserCartData();
-                    navigate('/');
-                    toast.success(response.message);
-                }
+                await dispatch(userLogin({ email, password }));
+                // const response = await login({ email, password });
+                // if (response.token) {
+                setName('');
+                setEmail('');
+                setPassword('');
+                await dispatch(getUserCartData());
+                // getUserCartData();
+                navigate('/');
+                toast.success('登录成功');
+                // }
             } else {
                 const response = await register({ name, email, password });
                 setName('');

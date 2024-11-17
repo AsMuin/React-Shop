@@ -51,10 +51,11 @@ const ShopContextProvider = function (props: { children: React.ReactNode }) {
     const [products, setProducts] = useState<ProductItem[]>([]);
     const navigate = useNavigate();
     useEffect(() => {
-        if (localStorage.getItem('token')) {
-            getUserCartData();
-            fetchProductList();
-        }
+        fetchProductList().then(() => {
+            if (localStorage.getItem('token')) {
+                getUserCartData();
+            }
+        });
     }, []);
     async function fetchProductList() {
         try {
