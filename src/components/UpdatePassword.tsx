@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { updatePassword } from '@/api/user';
+import { updatePassword } from '@/service/api/user';
 function UpdatePassword() {
     const [form, setForm] = useState({
         originalPassword: '',

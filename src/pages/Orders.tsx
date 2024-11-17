@@ -1,4 +1,4 @@
-import { getUserOrderList } from '@/api/order';
+import { getUserOrderList } from '@/service/api/order';
 import Title from '@/components/Title';
 import { useShopContext } from '@/hook/context';
 import { useEffect, useState } from 'react';

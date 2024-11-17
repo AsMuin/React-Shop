@@ -1,10 +1,21 @@
 import { assets } from '@/assets/assets';
 import { useShopContext } from '@/hook/context';
+import { useAppSelector } from '@/service/store';
+import { getCartAmount } from '@/service/store/cart';
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { removeAll } from '@/service/store/cart';
+import { logout } from '@/service/store/user';
 export default function Navbar() {
     const [visible, setVisible] = useState(false);
-    const { setShowSearch, getCartTotal, navigate, setCartItems } = useShopContext();
+    const {
+        dispatch,
+        setShowSearch,
+        // getCartTotal,
+        navigate
+        // setCartItems
+    } = useShopContext();
+    const cartAmount = useAppSelector(getCartAmount);
     const links = [
         { name: '首页', path: '/' },
         { name: '商品', path: '/collection' },
@@ -14,7 +25,8 @@ export default function Navbar() {
     function logoutORlogin() {
         if (localStorage.getItem('token')) {
             localStorage.removeItem('token');
-            setCartItems({});
+            dispatch(removeAll());
+            dispatch(logout());
         }
         navigate('/login');
     }
@@ -59,7 +71,7 @@ export default function Navbar() {
                     <Link to="/cart" className="relative">
                         <img src={assets.cart_icon} className="w-5 min-w-5" alt="cart" />
                         <p className="absolute bottom-[-5px] right-[-5px] aspect-square w-4 rounded-full bg-black text-center text-[8px] leading-4 text-white">
-                            {getCartTotal!()}
+                            {cartAmount}
                         </p>
                     </Link>
                     <img onClick={() => setVisible(true)} src={assets.menu_icon} className="w-5 cursor-pointer sm:hidden" alt="" />

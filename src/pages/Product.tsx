@@ -4,9 +4,19 @@ import { ProductItem } from '@/service/context/ShopContext';
 import { useShopContext } from '@/hook/context';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useAppSelector } from '@/service/store';
+import { getAllProducts } from '@/service/store/product';
+import { addToCart, SIZE_TYPE } from '@/service/store/cart';
+import { toast } from 'react-toastify';
 export default function Product() {
     const { productId } = useParams();
-    const { products, currency, addToCart } = useShopContext();
+    const {
+        dispatch,
+        // products,
+        currency
+        // addToCart
+    } = useShopContext();
+    const products = useAppSelector(getAllProducts);
     const [productData, setProductData] = useState<ProductItem | null>(null);
     const [image, setImage] = useState('');
     const [selectSize, setSelectSize] = useState('');
@@ -19,6 +29,14 @@ export default function Product() {
             }
         }
     }, [productId, products]);
+    async function handleAddToCart() {
+        try {
+            await dispatch(addToCart!({ productId: productData!._id, size: selectSize as SIZE_TYPE }));
+            toast.success('添加商品成功');
+        } catch (e) {
+            console.error(e);
+        }
+    }
     return productData ? (
         <>
             <div className="border-t-2 pt-10 opacity-100 transition-opacity duration-500 ease-in">
@@ -67,9 +85,7 @@ export default function Product() {
                                 ))}
                             </div>
                         </div>
-                        <button
-                            onClick={() => addToCart!(productData._id, selectSize)}
-                            className="bg-black px-8 py-3 text-sm text-white active:bg-gray-700">
+                        <button onClick={handleAddToCart} className="bg-black px-8 py-3 text-sm text-white active:bg-gray-700">
                             ADD TO CART
                         </button>
                         <hr className="mt-8 sm:w-4/5" />

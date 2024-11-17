@@ -1,7 +1,7 @@
 import Title from '@/components/Title';
 import UpdatePassword from '@/components/UpdatePassword';
 import { useState } from 'react';
-import { uploadAvatar } from '@/api/user';
+import { uploadAvatar } from '@/service/api/user';
 import { toast } from 'react-toastify';
 function Profile() {
     const [edit, setEdit] = useState(false);

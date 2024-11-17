@@ -2,10 +2,12 @@ import { ProductItem as ProductItemType } from '@/service/context/ShopContext';
 import { useEffect, useState } from 'react';
 import Title from './Title';
 import ProductItem from './ProductItem';
-import { useShopContext } from '@/hook/context';
+import { useAppSelector } from '@/service/store';
+import { getAllProducts } from '@/service/store/product';
 
 export default function RelatedProducts({ category, subCategory }: { category: string; subCategory: string }) {
-    const { products } = useShopContext();
+    // const { products } = useShopContext();
+    const products = useAppSelector(getAllProducts);
     const [related, setRelated] = useState<ProductItemType[]>([]);
     useEffect(() => {
         if (products.length) {

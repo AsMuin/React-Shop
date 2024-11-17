@@ -1,15 +1,28 @@
-import { postOrder, stripeOrder } from '@/api/order';
+import { postOrder, stripeOrder } from '@/service/api/order';
 import { assets } from '@/assets/assets';
 import CartTotal from '@/components/CartTotal';
 import Title from '@/components/Title';
-import { SIZE_TYPE } from '@/service/context/ShopContext';
 import { useShopContext } from '@/hook/context';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useAppSelector } from '@/service/store';
+import { getAllProducts } from '@/service/store/product';
+import { getAllCartItems, getCartAmount, removeAll } from '@/service/store/cart';
 
 export default function PlaceOrder() {
     const [method, setMethod] = useState('cod');
-    const { navigate, cartItems, setCartItems, getCartAmount, delivery_fee, products } = useShopContext();
+    const {
+        dispatch,
+        navigate,
+        // cartItems,
+        // setCartItems,
+        // getCartAmount,
+        delivery_fee
+        // , products
+    } = useShopContext();
+    const products = useAppSelector(getAllProducts);
+    const cartItems = useAppSelector(getAllCartItems);
+    const cartAmount = useAppSelector(getCartAmount);
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -27,29 +40,40 @@ export default function PlaceOrder() {
         e.preventDefault();
         console.log(formData);
         try {
-            const orderItemList = [];
-            for (const cartItem in cartItems) {
-                for (const size in cartItems[cartItem]) {
-                    if (cartItems[cartItem][size as SIZE_TYPE] > 0) {
-                        const itemInfo = products.find(product => product._id === cartItem);
-                        if (itemInfo) {
-                            const orderItem = { ...itemInfo, size, quantity: cartItems[cartItem][size as SIZE_TYPE] };
-                            orderItemList.push(orderItem);
-                        }
-                    }
+            // const orderItemList = [];
+            // for (const cartItem in cartItems) {
+            //     for (const size in cartItems[cartItem]) {
+            //         if (cartItems[cartItem][size as SIZE_TYPE] > 0) {
+            //             const itemInfo = products.find(product => product._id === cartItem);
+            //             if (itemInfo) {
+            //                 const orderItem = { ...itemInfo, size, quantity: cartItems[cartItem][size as SIZE_TYPE] };
+            //                 orderItemList.push(orderItem);
+            //             }
+            //         }
+            //     }
+            // }
+            const orderItemList = cartItems.map(item => {
+                const product = products.find(p => p._id === item.productId);
+                if (product) {
+                    return {
+                        ...product,
+                        size: item.size,
+                        quantity: item.quantity
+                    };
                 }
-            }
+            });
             const orderData = {
                 address: formData,
                 items: orderItemList,
-                amount: getCartAmount() + delivery_fee
+                amount: cartAmount + delivery_fee
             };
             switch (method) {
                 case 'cod': {
                     await postOrder(orderData);
                     toast.success('下单成功');
                     navigate('/orders');
-                    setCartItems({});
+                    // setCartItems({});
+                    dispatch(removeAll());
                     break;
                 }
                 case 'stripe': {

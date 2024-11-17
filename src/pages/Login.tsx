@@ -1,9 +1,9 @@
-import { register } from '@/api/user';
+import { register } from '@/service/api/user';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 // import { useShopContext } from '@/hook/context';
-import { userLogin } from '@/service/store/user';
+import { fetchUserInfo, userLogin } from '@/service/store/user';
 import { getUserCartData } from '@/service/store/cart';
 import { useAppDispatch } from '@/service/store';
 export default function Login() {
@@ -22,10 +22,11 @@ export default function Login() {
                 await dispatch(userLogin({ email, password }));
                 // const response = await login({ email, password });
                 // if (response.token) {
+                await dispatch(getUserCartData());
+                await dispatch(fetchUserInfo());
                 setName('');
                 setEmail('');
                 setPassword('');
-                await dispatch(getUserCartData());
                 // getUserCartData();
                 navigate('/');
                 toast.success('登录成功');

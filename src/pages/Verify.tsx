@@ -1,4 +1,4 @@
-import { verifyStripe } from '@/api/order';
+import { verifyStripe } from '@/service/api/order';
 import { useShopContext } from '@/hook/context';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';

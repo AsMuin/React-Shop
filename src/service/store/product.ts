@@ -1,6 +1,7 @@
-import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
+import { getProductList } from '../api/product';
+import { RootState } from '.';
 export interface ProductItem {
-    id: string;
     _id: string;
     name: string;
     description: string;
@@ -12,11 +13,26 @@ export interface ProductItem {
     date: number;
     bestseller: boolean;
 }
-const productAdapter = createEntityAdapter<ProductItem>();
+const productAdapter = createEntityAdapter<ProductItem, string>({
+    selectId: entity => entity._id // 指定使用 _id 作为唯一标识
+});
 const productSlice = createSlice({
     name: 'product',
     initialState: productAdapter.getInitialState(),
-    reducers: {}
+    reducers: {},
+    extraReducers: builder => {
+        builder.addCase(fetchProductList.fulfilled, (state, action) => {
+            productAdapter.upsertMany(state, action.payload ?? []);
+        });
+    }
 });
-
+export const fetchProductList = createAsyncThunk('product/fetchProductList', async () => {
+    try {
+        const response = await getProductList<ProductItem[]>();
+        return response.data;
+    } catch (e) {
+        console.error(e);
+    }
+});
+export const { selectAll: getAllProducts, selectById: selectProductById } = productAdapter.getSelectors((state: RootState) => state.product);
 export default productSlice.reducer;

@@ -1,10 +1,25 @@
+import { useAppSelector } from '@/service/store';
 import Title from './Title';
 import { useShopContext } from '@/hook/context';
+import { getAllProducts } from '@/service/store/product';
+import { getAllCartItems } from '@/service/store/cart';
 
 export default function CartTotal() {
-    const { currency, delivery_fee, getCartAmount } = useShopContext();
-
-    return getCartAmount!() ? (
+    const {
+        currency,
+        delivery_fee
+        // , getCartAmount
+    } = useShopContext();
+    const products = useAppSelector(getAllProducts);
+    const cartData = useAppSelector(getAllCartItems);
+    const cartTotal = cartData.reduce((acc, curr) => {
+        const product = products.find(p => p._id === curr.productId);
+        if (product) {
+            return acc + product.price * curr.quantity;
+        }
+        return acc;
+    }, 0);
+    return cartTotal ? (
         <>
             <div className="w-full">
                 <div className="text-2xl">
@@ -15,7 +30,7 @@ export default function CartTotal() {
                         <p>小计</p>
                         <p>
                             {currency}
-                            {getCartAmount!() || 0}.00
+                            {cartTotal || 0}.00
                         </p>
                     </div>
                     <hr />
@@ -31,7 +46,7 @@ export default function CartTotal() {
                         <b>共计</b>
                         <b>
                             {currency}
-                            {getCartAmount!() + delivery_fee! || 0}.00
+                            {cartTotal + delivery_fee! || 0}.00
                         </b>
                     </div>
                 </div>

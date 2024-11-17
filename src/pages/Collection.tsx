@@ -2,10 +2,19 @@ import { assets } from '@/assets/assets';
 import ProductItem from '@/components/ProductItem';
 import Title from '@/components/Title';
 import { useShopContext } from '@/hook/context';
+import { useAppSelector } from '@/service/store';
+import { getAllProducts } from '@/service/store/product';
 import { useEffect, useState } from 'react';
 
 export default function Collection() {
-    const { products, search, showSearch } = useShopContext();
+    const {
+        // products,
+        search,
+        showSearch
+    } = useShopContext();
+    const products = useAppSelector(getAllProducts);
+    console.log('products', products);
+
     const [showFilters, setShowFilters] = useState(false);
     const [filterProducts, setFilterProducts] = useState<typeof products>([]);
     const [category, setCategory] = useState<string[]>([]);
