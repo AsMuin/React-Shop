@@ -4,10 +4,11 @@ import ProductItem from './ProductItem';
 // import { useShopContext } from '@/hook/context';
 import { useAppSelector } from '@/service/store';
 import { getAllProducts } from '@/service/store/product';
+import { shallowEqual } from 'react-redux';
 
 export default function BestSeller() {
     // const { products } = useShopContext();
-    const products = useAppSelector(getAllProducts);
+    const products = useAppSelector(getAllProducts,shallowEqual);
     const [bestSeller, setBestSeller] = useState<typeof products>([]);
     useEffect(() => {
         const bestProduct = products!.filter(product => product.bestseller);

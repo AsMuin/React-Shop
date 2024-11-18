@@ -6,6 +6,7 @@ import { fetchProductList } from '@/service/store/product';
 import { useAppDispatch, useAppSelector } from '../store';
 import { getUserCartData } from '../store/cart';
 import { fetchUserInfo, getUserInfo } from '../store/user';
+import { shallowEqual } from 'react-redux';
 export type SIZE_TYPE = 'S' | 'M' | 'L' | 'XL' | 'XXL';
 export interface ProductItem {
     _id: string;
@@ -55,7 +56,7 @@ const ShopContextProvider = function (props: { children: React.ReactNode }) {
     // const [products, setProducts] = useState<ProductItem[]>([]);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const userInfo = useAppSelector(getUserInfo)
+    const userInfo = useAppSelector(getUserInfo,shallowEqual)
     useEffect(() => {
         dispatch(fetchProductList()).then(() => {
             if (localStorage.getItem('token')) {

@@ -6,8 +6,9 @@ import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { removeAll } from '@/service/store/cart';
 import { getUserInfo, logout } from '@/service/store/user';
+import { shallowEqual } from 'react-redux';
 export default function Navbar() {
-    const userInfo = useAppSelector(getUserInfo);
+    const userInfo = useAppSelector(getUserInfo,shallowEqual);
     const [visible, setVisible] = useState(false);
     const {
         dispatch,

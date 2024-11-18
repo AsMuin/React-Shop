@@ -3,6 +3,7 @@ import Title from './Title';
 import { useShopContext } from '@/hook/context';
 import { getAllProducts } from '@/service/store/product';
 import { getAllCartItems } from '@/service/store/cart';
+import { shallowEqual } from 'react-redux';
 
 export default function CartTotal() {
     const {
@@ -10,8 +11,8 @@ export default function CartTotal() {
         delivery_fee
         // , getCartAmount
     } = useShopContext();
-    const products = useAppSelector(getAllProducts);
-    const cartData = useAppSelector(getAllCartItems);
+    const products = useAppSelector(getAllProducts,shallowEqual);
+    const cartData = useAppSelector(getAllCartItems,shallowEqual);
     const cartTotal = cartData.reduce((acc, curr) => {
         const product = products.find(p => p._id === curr.productId);
         if (product) {

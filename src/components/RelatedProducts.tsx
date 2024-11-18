@@ -4,10 +4,11 @@ import Title from './Title';
 import ProductItem from './ProductItem';
 import { useAppSelector } from '@/service/store';
 import { getAllProducts } from '@/service/store/product';
+import { shallowEqual } from 'react-redux';
 
 export default function RelatedProducts({ category, subCategory }: { category: string; subCategory: string }) {
     // const { products } = useShopContext();
-    const products = useAppSelector(getAllProducts);
+    const products = useAppSelector(getAllProducts,shallowEqual);
     const [related, setRelated] = useState<ProductItemType[]>([]);
     useEffect(() => {
         if (products.length) {

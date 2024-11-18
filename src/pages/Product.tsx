@@ -8,6 +8,7 @@ import { useAppSelector } from '@/service/store';
 import { getAllProducts } from '@/service/store/product';
 import { addToCart, SIZE_TYPE } from '@/service/store/cart';
 import { toast } from 'react-toastify';
+import { shallowEqual } from 'react-redux';
 export default function Product() {
     const { productId } = useParams();
     const {
@@ -16,7 +17,7 @@ export default function Product() {
         currency
         // addToCart
     } = useShopContext();
-    const products = useAppSelector(getAllProducts);
+    const products = useAppSelector(getAllProducts,shallowEqual);
     const [productData, setProductData] = useState<ProductItem | null>(null);
     const [image, setImage] = useState('');
     const [selectSize, setSelectSize] = useState('');

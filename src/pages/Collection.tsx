@@ -5,6 +5,7 @@ import { useShopContext } from '@/hook/context';
 import { useAppSelector } from '@/service/store';
 import { getAllProducts } from '@/service/store/product';
 import { useEffect, useState } from 'react';
+import { shallowEqual } from 'react-redux';
 
 export default function Collection() {
     const {
@@ -12,7 +13,7 @@ export default function Collection() {
         search,
         showSearch
     } = useShopContext();
-    const products = useAppSelector(getAllProducts);
+    const products = useAppSelector(getAllProducts,shallowEqual);
     console.log('products', products);
 
     const [showFilters, setShowFilters] = useState(false);

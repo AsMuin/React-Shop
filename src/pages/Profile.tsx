@@ -5,9 +5,10 @@ import { toast } from 'react-toastify';
 import { useAppSelector } from '@/service/store';
 import { getUserInfo, updateUserEmail, updateUserName } from '@/service/store/user';
 import { useShopContext } from '@/hook/context';
+import { shallowEqual } from 'react-redux';
 function Profile() {
     const { dispatch } = useShopContext();
-    const userInfo = useAppSelector(getUserInfo);
+    const userInfo = useAppSelector(getUserInfo,shallowEqual);
     const [editPassword, setEditPassword] = useState(false);
     const [editEmail, setEditEmail] = useState(false);
     const [editName, setEditName] = useState(false);

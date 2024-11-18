@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { useAppSelector } from '@/service/store';
 import { getAllProducts } from '@/service/store/product';
 import { getAllCartItems, getCartAmount, removeAll } from '@/service/store/cart';
+import { shallowEqual } from 'react-redux';
 
 export default function PlaceOrder() {
     const [method, setMethod] = useState('cod');
@@ -20,8 +21,8 @@ export default function PlaceOrder() {
         delivery_fee
         // , products
     } = useShopContext();
-    const products = useAppSelector(getAllProducts);
-    const cartItems = useAppSelector(getAllCartItems);
+    const products = useAppSelector(getAllProducts,shallowEqual);
+    const cartItems = useAppSelector(getAllCartItems,shallowEqual);
     const cartAmount = useAppSelector(getCartAmount);
     const [formData, setFormData] = useState({
         firstName: '',

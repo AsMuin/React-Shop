@@ -6,6 +6,7 @@ import { useShopContext } from '@/hook/context';
 import { useAppSelector } from '@/service/store';
 import { getAllProducts } from '@/service/store/product';
 import { getAllCartItems, updateNumberInCartQuantity } from '@/service/store/cart';
+import { shallowEqual } from 'react-redux';
 // interface CartItem {
 //     _id: string;
 //     size: SIZE_TYPE;
@@ -21,9 +22,9 @@ export default function Cart() {
         // updateCartItem,
         // getUserCartData
     } = useShopContext();
-    const products = useAppSelector(getAllProducts);
+    const products = useAppSelector(getAllProducts,shallowEqual);
     // const [cartData, setCartData] = useState<CartItem[]>([]);
-    const cartData = useAppSelector(getAllCartItems);
+    const cartData = useAppSelector(getAllCartItems,shallowEqual);
     // useEffect(() => {
     //     if (products.length > 0) {
     //         const cartDataCopy = [];
