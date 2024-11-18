@@ -6,39 +6,12 @@ import { useShopContext } from '@/hook/context';
 import { useAppSelector } from '@/service/store';
 import { getAllCartItems, updateNumberInCartQuantity } from '@/service/store/cart';
 import { shallowEqual } from 'react-redux';
-// interface CartItem {
-//     _id: string;
-//     size: SIZE_TYPE;
-//     quantity: number;
-// }
+
 export default function Cart() {
-    const {
-        dispatch,
-        // products,
-        currency,
-        // cartItems,
-        navigate
-        // updateCartItem,
-        // getUserCartData
-    } = useShopContext();
-    // const [cartData, setCartData] = useState<CartItem[]>([]);
+    const { dispatch, currency, navigate } = useShopContext();
     const products = useAppSelector(state => state.product.entities, shallowEqual);
     const cartData = useAppSelector(getAllCartItems, shallowEqual);
-    // useEffect(() => {
-    //     if (products.length > 0) {
-    //         const cartDataCopy = [];
-    //         for (const cartItem in cartItems) {
-    //             for (const size in cartItems[cartItem]) {
-    //                 cartDataCopy.push({
-    //                     _id: cartItem,
-    //                     size: size as SIZE_TYPE,
-    //                     quantity: cartItems[cartItem][size as SIZE_TYPE] ?? 0
-    //                 });
-    //             }
-    //         }
-    //         setCartData(cartDataCopy);
-    //     }
-    // }, [cartItems, products]);
+
     return (
         <>
             <div className="border-t pt-14">

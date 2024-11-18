@@ -12,15 +12,7 @@ import { shallowEqual } from 'react-redux';
 
 export default function PlaceOrder() {
     const [method, setMethod] = useState('cod');
-    const {
-        dispatch,
-        navigate,
-        // cartItems,
-        // setCartItems,
-        // getCartAmount,
-        delivery_fee
-        // , products
-    } = useShopContext();
+    const { dispatch, navigate, delivery_fee } = useShopContext();
     const products = useAppSelector(getAllProducts, shallowEqual);
     const cartItems = useAppSelector(getAllCartItems, shallowEqual);
     const cartAmount = useAppSelector(getCartAmount);
@@ -41,18 +33,6 @@ export default function PlaceOrder() {
         e.preventDefault();
         console.log(formData);
         try {
-            // const orderItemList = [];
-            // for (const cartItem in cartItems) {
-            //     for (const size in cartItems[cartItem]) {
-            //         if (cartItems[cartItem][size as SIZE_TYPE] > 0) {
-            //             const itemInfo = products.find(product => product._id === cartItem);
-            //             if (itemInfo) {
-            //                 const orderItem = { ...itemInfo, size, quantity: cartItems[cartItem][size as SIZE_TYPE] };
-            //                 orderItemList.push(orderItem);
-            //             }
-            //         }
-            //     }
-            // }
             const orderItemList = cartItems.map(item => {
                 const product = products.find(p => p._id === item.productId);
                 if (product) {

@@ -24,8 +24,6 @@ function Profile() {
                 const avatar = event.target.files[0];
                 await dispatch(uploadUserAvatar({ avatar }));
                 toast.success('上传成功');
-                // const response = await uploadAvatar({ avatar });
-                // toast.success(response.message);
             } catch (e) {
                 console.error(e);
             }

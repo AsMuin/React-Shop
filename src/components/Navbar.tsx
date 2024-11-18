@@ -10,13 +10,7 @@ import { shallowEqual } from 'react-redux';
 export default function Navbar() {
     const userInfo = useAppSelector(getUserInfo, shallowEqual);
     const [visible, setVisible] = useState(false);
-    const {
-        dispatch,
-        setShowSearch,
-        // getCartTotal,
-        navigate
-        // setCartItems
-    } = useShopContext();
+    const { dispatch, setShowSearch, navigate } = useShopContext();
     const cartAmount = useAppSelector(getCartAmount);
     const links = [
         { name: '首页', path: '/' },

@@ -2,7 +2,6 @@ import { register } from '@/service/api/user';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-// import { useShopContext } from '@/hook/context';
 import { fetchUserInfo, userLogin } from '@/service/store/user';
 import { getUserCartData } from '@/service/store/cart';
 import { useAppDispatch } from '@/service/store';
@@ -11,7 +10,6 @@ export default function Login() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // const { getUserCartData } = useShopContext();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     async function handelSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -20,17 +18,13 @@ export default function Login() {
         try {
             if (currentState === 'Login') {
                 await dispatch(userLogin({ email, password }));
-                // const response = await login({ email, password });
-                // if (response.token) {
                 await dispatch(getUserCartData());
                 await dispatch(fetchUserInfo());
                 setName('');
                 setEmail('');
                 setPassword('');
-                // getUserCartData();
                 navigate('/');
                 toast.success('登录成功');
-                // }
             } else {
                 const response = await register({ name, email, password });
                 setName('');

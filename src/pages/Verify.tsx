@@ -6,11 +6,7 @@ import { toast } from 'react-toastify';
 import { removeAll } from '@/service/store/cart';
 
 function Verify() {
-    const {
-        dispatch,
-        navigate
-        // setCartItems
-    } = useShopContext();
+    const { dispatch, navigate } = useShopContext();
     const [searchParams, setSearchParams] = useSearchParams();
     const success = searchParams.get('success') === 'true';
     const orderId = searchParams.get('orderId')!;
