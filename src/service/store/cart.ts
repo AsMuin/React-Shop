@@ -89,6 +89,7 @@ export const getUserCartData = createAsyncThunk('cart/getUserCartData', async ()
         console.error(e);
     }
 });
+
 export const addToCart = createAsyncThunk('cart/addToCart', async ({ productId, size }: { productId: string; size: SIZE_TYPE }) => {
     try {
         await addProductToCart({ productId, size });
@@ -97,6 +98,7 @@ export const addToCart = createAsyncThunk('cart/addToCart', async ({ productId, 
         console.error(e);
     }
 });
+
 export const updateNumberInCartQuantity = createAsyncThunk(
     'cart/updateNumberInCartQuantity',
     async ({ productId, size, quantity }: { productId: string; size: SIZE_TYPE; quantity: number }) => {
@@ -108,6 +110,7 @@ export const updateNumberInCartQuantity = createAsyncThunk(
         }
     }
 );
+
 export const { selectAll: getAllCartItems, selectById, selectIds } = cartAdapter.getSelectors((state: RootState) => state.cart);
 export const { removeAll } = cartSlice.actions;
 export const getCartAmount = (state: RootState) => state.cart.amount;

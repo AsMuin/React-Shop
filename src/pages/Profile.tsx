@@ -3,7 +3,10 @@ import UpdatePassword from '@/components/UpdatePassword';
 import { useState } from 'react';
 import { uploadAvatar } from '@/service/api/user';
 import { toast } from 'react-toastify';
+import { useAppSelector } from '@/service/store';
+import { getUserInfo } from '@/service/store/user';
 function Profile() {
+    const userInfo = useAppSelector(getUserInfo)
     const [edit, setEdit] = useState(false);
     function handleUploadAvatar() {
         const uploader = document.createElement('input');
@@ -13,8 +16,8 @@ function Profile() {
         uploader.onchange = async (event: any) => {
             try {
                 const avatar = event.target.files[0];
-                const response = await uploadAvatar({ avatar });
-                toast.success(response.message);
+                // const response = await uploadAvatar({ avatar });
+                // toast.success(response.message);
             } catch (e) {
                 console.error(e);
             }
@@ -39,7 +42,7 @@ function Profile() {
                                 <div className="group/img relative mx-auto h-14 w-14 duration-500 group-hover/li:scale-125">
                                     <img
                                         className="h-full w-full rounded-full shadow-md shadow-slate-700"
-                                        src="https://tse1-mm.cn.bing.net/th/id/OIP-C.TuQ08mXWbqN_vZ1EKEIpSgHaEc?w=288&h=180&c=7&r=0&o=5&pid=1.7"
+                                        src={userInfo.avatar || 'src/assets/about_img.png'}
                                         alt=""
                                     />
                                     <div
@@ -52,12 +55,12 @@ function Profile() {
                             <li className="group p-4 text-center text-gray-400 duration-500 hover:scale-110 hover:font-bold hover:text-gray-600 hover:shadow-lg md:flex md:justify-center md:gap-8">
                                 <p className="mb-1">昵称</p>
                                 <p className="block group-hover:hidden md:hidden">...</p>
-                                <p className="hidden group-hover:block md:block">2133213</p>
+                                <p className="hidden group-hover:block md:block text-sky-600">{userInfo.name || '暂未设置'}</p>
                             </li>
                             <li className="group p-4 text-center text-gray-400 duration-500 hover:scale-110 hover:font-bold hover:text-gray-600 hover:shadow-lg md:flex md:justify-center md:gap-8">
                                 <p className="mb-1">邮箱</p>
                                 <p className="block group-hover:hidden md:hidden">...</p>
-                                <p className="hidden group-hover:block md:block">2133213</p>
+                                <p className="hidden group-hover:block md:block text-sky-600">{userInfo.email || '暂未设置'}</p>
                             </li>
                         </ul>
                     </>

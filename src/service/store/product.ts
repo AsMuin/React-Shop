@@ -26,6 +26,7 @@ const productSlice = createSlice({
         });
     }
 });
+
 export const fetchProductList = createAsyncThunk('product/fetchProductList', async () => {
     try {
         const response = await getProductList<ProductItem[]>();
@@ -34,5 +35,6 @@ export const fetchProductList = createAsyncThunk('product/fetchProductList', asy
         console.error(e);
     }
 });
+
 export const { selectAll: getAllProducts, selectById: selectProductById } = productAdapter.getSelectors((state: RootState) => state.product);
 export default productSlice.reducer;
