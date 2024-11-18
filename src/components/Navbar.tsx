@@ -39,16 +39,18 @@ export default function Navbar() {
     return (
         <>
             <div className="flex items-center justify-between py-5 font-medium">
-                <Link to="/">
-                    <div className="flex gap-6">
+                <div className="flex gap-6">
+                    <Link to="/">
                         <img src={assets.logo} className="w-36" alt="" />
+                    </Link>
+                    <Link to="/profile">
                         <div className="hidden flex-1 items-center gap-2 lg:flex">
                             <img className="h-8 w-8 rounded-full" src={userInfo.avatar || assets.about_img} alt="" />
                             <span className="text-xs text-slate-500">欢迎您</span>
                             <span className="max-w-20 truncate text-xs font-semibold text-slate-600">{userInfo.name || '尊敬的游客'}</span>
                         </div>
-                    </div>
-                </Link>
+                    </Link>
+                </div>
                 <ul className="hidden gap-5 text-sm text-gray-700 sm:flex">
                     {links.map(link => (
                         <NavLink key={link.name} to={link.path} className="flex flex-col items-center gap-1">
