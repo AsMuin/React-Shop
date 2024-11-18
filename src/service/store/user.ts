@@ -34,8 +34,20 @@ const userSlice = createSlice({
                 state.email = email ?? '';
                 state.avatar = avatar ?? '';
             }).addCase(uploadUserAvatar.fulfilled,(state,action)=>{
-                const {avatar} = action.payload!;
+                const { name, email, avatar } = action.payload!;
+                state.name = name ?? '';
+                state.email = email ?? '';
                 state.avatar = avatar ?? '';
+            }).addCase(updateUserName.fulfilled,(state,action)=>{
+                const { name, email, avatar } = action.payload!;
+                state.name = name?? '';
+                state.email = email?? '';
+                state.avatar = avatar?? '';
+            }).addCase(updateUserEmail.fulfilled,(state,action)=>{
+                const { name, email, avatar } = action.payload!;
+                state.name = name?? '';
+                state.email = email?? '';
+                state.avatar = avatar?? '';
             })
     }
 });

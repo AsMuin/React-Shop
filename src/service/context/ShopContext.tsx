@@ -3,9 +3,9 @@ import { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import { addProductToCart, updateQuantity } from '@/service/api/cart';
 import { fetchProductList } from '@/service/store/product';
-import { useAppDispatch } from '../store';
+import { useAppDispatch, useAppSelector } from '../store';
 import { getUserCartData } from '../store/cart';
-import { fetchUserInfo } from '../store/user';
+import { fetchUserInfo, getUserInfo } from '../store/user';
 export type SIZE_TYPE = 'S' | 'M' | 'L' | 'XL' | 'XXL';
 export interface ProductItem {
     _id: string;
@@ -55,10 +55,10 @@ const ShopContextProvider = function (props: { children: React.ReactNode }) {
     // const [products, setProducts] = useState<ProductItem[]>([]);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const userInfo = useAppSelector(getUserInfo)
     useEffect(() => {
         dispatch(fetchProductList()).then(() => {
             if (localStorage.getItem('token')) {
-                dispatch(fetchUserInfo());
                 dispatch(getUserCartData());
             }
         });
@@ -68,6 +68,12 @@ const ShopContextProvider = function (props: { children: React.ReactNode }) {
         //     }
         // });
     }, [dispatch]);
+
+    useEffect(()=>{
+        if(userInfo.email===''&& userInfo.name==='' && localStorage.getItem('token')){
+            dispatch(fetchUserInfo());
+        }
+    },[userInfo])
     // async function fetchProductList() {
     //     try {
     //         const response = await getProductList<ProductItem[]>();
