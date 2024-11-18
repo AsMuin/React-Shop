@@ -41,9 +41,9 @@ export default function Navbar() {
             <div className="flex items-center justify-between py-5 font-medium">
                 <Link to="/">
                     <div className="flex gap-6">
-                        <img src={userInfo.avatar || assets.logo} className="w-36" alt="" />
+                        <img src={assets.logo} className="w-36" alt="" />
                         <div className="hidden flex-1 items-center gap-2 lg:flex">
-                            <img className="h-8 w-8 rounded-full" src={assets.about_img} alt="" />
+                            <img className="h-8 w-8 rounded-full" src={userInfo.avatar || assets.about_img} alt="" />
                             <span className="text-xs text-slate-500">欢迎您</span>
                             <span className="max-w-20 truncate text-xs font-semibold text-slate-600">{userInfo.name || '尊敬的游客'}</span>
                         </div>

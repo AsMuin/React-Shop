@@ -1,10 +1,10 @@
 import { getInfo, login, updateEmail, updateName, uploadAvatar } from '@/service/api/user';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '.';
-interface IUserInfo{
-    name:string;
-    email:string;
-    avatar:string;
+interface IUserInfo {
+    name: string;
+    email: string;
+    avatar: string;
 }
 const userSlice = createSlice({
     name: 'user',
@@ -33,22 +33,25 @@ const userSlice = createSlice({
                 state.name = name ?? '';
                 state.email = email ?? '';
                 state.avatar = avatar ?? '';
-            }).addCase(uploadUserAvatar.fulfilled,(state,action)=>{
+            })
+            .addCase(uploadUserAvatar.fulfilled, (state, action) => {
                 const { name, email, avatar } = action.payload!;
                 state.name = name ?? '';
                 state.email = email ?? '';
                 state.avatar = avatar ?? '';
-            }).addCase(updateUserName.fulfilled,(state,action)=>{
-                const { name, email, avatar } = action.payload!;
-                state.name = name?? '';
-                state.email = email?? '';
-                state.avatar = avatar?? '';
-            }).addCase(updateUserEmail.fulfilled,(state,action)=>{
-                const { name, email, avatar } = action.payload!;
-                state.name = name?? '';
-                state.email = email?? '';
-                state.avatar = avatar?? '';
             })
+            .addCase(updateUserName.fulfilled, (state, action) => {
+                const { name, email, avatar } = action.payload!;
+                state.name = name ?? '';
+                state.email = email ?? '';
+                state.avatar = avatar ?? '';
+            })
+            .addCase(updateUserEmail.fulfilled, (state, action) => {
+                const { name, email, avatar } = action.payload!;
+                state.name = name ?? '';
+                state.email = email ?? '';
+                state.avatar = avatar ?? '';
+            });
     }
 });
 
@@ -70,32 +73,32 @@ export const fetchUserInfo = createAsyncThunk('user/fetchUserInfo', async () => 
     }
 });
 
-export const uploadUserAvatar = createAsyncThunk('user/uploadUserAvatar',async({avatar}:{avatar:File})=>{
-    try{
-        const response = await uploadAvatar<IUserInfo>({avatar});
+export const uploadUserAvatar = createAsyncThunk('user/uploadUserAvatar', async ({ avatar }: { avatar: File }) => {
+    try {
+        const response = await uploadAvatar<IUserInfo>({ avatar });
         return response.data;
-    }catch(e){
+    } catch (e) {
         console.error(e);
     }
-})
+});
 
-export const updateUserName = createAsyncThunk('user/updateUserName',async({name}:{name:string})=>{
-    try{
-        const response = await updateName<IUserInfo>({name});
+export const updateUserName = createAsyncThunk('user/updateUserName', async ({ name }: { name: string }) => {
+    try {
+        const response = await updateName<IUserInfo>({ name });
         return response.data;
-    }catch(e){
+    } catch (e) {
         console.error(e);
     }
-})
+});
 
-export const updateUserEmail = createAsyncThunk('user/updateUserEmail',async({email}:{email:string})=>{
-    try{
-        const response = await updateEmail<IUserInfo>({email});
+export const updateUserEmail = createAsyncThunk('user/updateUserEmail', async ({ email }: { email: string }) => {
+    try {
+        const response = await updateEmail<IUserInfo>({ email });
         return response.data;
-    }catch(e){
+    } catch (e) {
         console.error(e);
     }
-})
+});
 
 export const { logout } = userSlice.actions;
 export const getUserInfo = (state: RootState) => state.user;

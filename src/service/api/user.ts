@@ -20,12 +20,12 @@ function uploadAvatar<T>({ avatar }: { avatar: File }) {
     return request<T>({ url: `${BASEURL}/uploadAvatar`, method: 'POST', data: { avatar }, headers: { 'Content-Type': 'multipart/form-data' } });
 }
 
-function updateEmail<T>({email}:{email:string}){
-    return request<T>({url:`${BASEURL}/updateEmail`,method:'POST',data:{email}})
+function updateEmail<T>({ email }: { email: string }) {
+    return request<T>({ url: `${BASEURL}/updateEmail`, method: 'POST', data: { email } });
 }
 
-function updateName<T>({name}:{name:string}){
-    return request<T>({url:`${BASEURL}/updateName`,method:'POST',data:{name}})
+function updateName<T>({ name }: { name: string }) {
+    return request<T>({ url: `${BASEURL}/updateName`, method: 'POST', data: { name } });
 }
 
-export { login, register, updatePassword, uploadAvatar, getInfo,updateEmail,updateName };
+export { login, register, updatePassword, uploadAvatar, getInfo, updateEmail, updateName };

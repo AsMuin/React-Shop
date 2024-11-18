@@ -3,7 +3,7 @@ import UpdatePassword from '@/components/UpdatePassword';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAppSelector } from '@/service/store';
-import { getUserInfo, updateUserEmail, updateUserName } from '@/service/store/user';
+import { getUserInfo, updateUserEmail, updateUserName, uploadUserAvatar } from '@/service/store/user';
 import { useShopContext } from '@/hook/context';
 import { shallowEqual } from 'react-redux';
 function Profile() {
@@ -22,6 +22,8 @@ function Profile() {
         uploader.onchange = async (event: any) => {
             try {
                 const avatar = event.target.files[0];
+                await dispatch(uploadUserAvatar({ avatar }));
+                toast.success('上传成功');
                 // const response = await uploadAvatar({ avatar });
                 // toast.success(response.message);
             } catch (e) {
@@ -34,8 +36,10 @@ function Profile() {
         if (editName) {
             try {
                 if (name) {
-                    const response = await dispatch(updateUserName({ name }));
-                    console.log(response);
+                    await dispatch(updateUserName({ name }));
+                    toast.success('修改成功');
+                    setName('');
+                    setEditName(false);
                 } else {
                     toast.error('昵称不能为空');
                 }
@@ -50,8 +54,10 @@ function Profile() {
         if (editEmail) {
             try {
                 if (email) {
-                    const response = await dispatch(updateUserEmail({ email }));
-                    console.log(response);
+                    await dispatch(updateUserEmail({ email }));
+                    toast.success('修改成功');
+                    setEmail('');
+                    setEditEmail(false);
                 } else {
                     toast.error('邮箱不能为空');
                 }

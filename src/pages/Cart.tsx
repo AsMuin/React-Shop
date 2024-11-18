@@ -4,7 +4,6 @@ import Title from '@/components/Title';
 // import { SIZE_TYPE } from '@/service/context/ShopContext';
 import { useShopContext } from '@/hook/context';
 import { useAppSelector } from '@/service/store';
-import { getAllProducts } from '@/service/store/product';
 import { getAllCartItems, updateNumberInCartQuantity } from '@/service/store/cart';
 import { shallowEqual } from 'react-redux';
 // interface CartItem {
@@ -22,8 +21,8 @@ export default function Cart() {
         // updateCartItem,
         // getUserCartData
     } = useShopContext();
-    const products = useAppSelector(getAllProducts, shallowEqual);
     // const [cartData, setCartData] = useState<CartItem[]>([]);
+    const products = useAppSelector(state => state.product.entities, shallowEqual);
     const cartData = useAppSelector(getAllCartItems, shallowEqual);
     // useEffect(() => {
     //     if (products.length > 0) {
@@ -48,7 +47,7 @@ export default function Cart() {
                 </div>
                 <div className="">
                     {cartData.map((cartItem, index) => {
-                        const productData = products?.find(product => product._id === cartItem.productId);
+                        const productData = products[cartItem.productId] ?? {};
                         return (
                             <div
                                 key={index}
