@@ -3,9 +3,14 @@ import { useShopContext } from '@/hook/context';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { removeAll } from '@/service/store/cart';
 
 function Verify() {
-    const { navigate, setCartItems } = useShopContext();
+    const {
+        dispatch,
+        navigate
+        // setCartItems
+    } = useShopContext();
     const [searchParams, setSearchParams] = useSearchParams();
     const success = searchParams.get('success') === 'true';
     const orderId = searchParams.get('orderId')!;
@@ -16,7 +21,7 @@ function Verify() {
     async function verifyPayment() {
         try {
             await verifyStripe({ orderId, success });
-            setCartItems({});
+            await dispatch(removeAll());
             navigate('/orders');
             toast.success('支付成功，可查看订单详情');
         } catch (e) {

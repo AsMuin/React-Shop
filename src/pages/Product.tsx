@@ -17,7 +17,7 @@ export default function Product() {
         currency
         // addToCart
     } = useShopContext();
-    const products = useAppSelector(getAllProducts,shallowEqual);
+    const products = useAppSelector(getAllProducts, shallowEqual);
     const [productData, setProductData] = useState<ProductItem | null>(null);
     const [image, setImage] = useState('');
     const [selectSize, setSelectSize] = useState('');

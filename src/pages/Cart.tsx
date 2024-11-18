@@ -22,9 +22,9 @@ export default function Cart() {
         // updateCartItem,
         // getUserCartData
     } = useShopContext();
-    const products = useAppSelector(getAllProducts,shallowEqual);
+    const products = useAppSelector(getAllProducts, shallowEqual);
     // const [cartData, setCartData] = useState<CartItem[]>([]);
-    const cartData = useAppSelector(getAllCartItems,shallowEqual);
+    const cartData = useAppSelector(getAllCartItems, shallowEqual);
     // useEffect(() => {
     //     if (products.length > 0) {
     //         const cartDataCopy = [];

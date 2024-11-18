@@ -21,8 +21,8 @@ export default function PlaceOrder() {
         delivery_fee
         // , products
     } = useShopContext();
-    const products = useAppSelector(getAllProducts,shallowEqual);
-    const cartItems = useAppSelector(getAllCartItems,shallowEqual);
+    const products = useAppSelector(getAllProducts, shallowEqual);
+    const cartItems = useAppSelector(getAllCartItems, shallowEqual);
     const cartAmount = useAppSelector(getCartAmount);
     const [formData, setFormData] = useState({
         firstName: '',

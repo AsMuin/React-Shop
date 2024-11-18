@@ -8,7 +8,7 @@ import { useShopContext } from '@/hook/context';
 import { shallowEqual } from 'react-redux';
 function Profile() {
     const { dispatch } = useShopContext();
-    const userInfo = useAppSelector(getUserInfo,shallowEqual);
+    const userInfo = useAppSelector(getUserInfo, shallowEqual);
     const [editPassword, setEditPassword] = useState(false);
     const [editEmail, setEditEmail] = useState(false);
     const [editName, setEditName] = useState(false);
@@ -33,10 +33,10 @@ function Profile() {
     async function handleUpdateName() {
         if (editName) {
             try {
-                if(name){
+                if (name) {
                     const response = await dispatch(updateUserName({ name }));
                     console.log(response);
-                }else{
+                } else {
                     toast.error('昵称不能为空');
                 }
             } catch (e) {
@@ -49,10 +49,10 @@ function Profile() {
     async function handleUpdateEmail() {
         if (editEmail) {
             try {
-                if(email){
+                if (email) {
                     const response = await dispatch(updateUserEmail({ email }));
                     console.log(response);
-                }else{
+                } else {
                     toast.error('邮箱不能为空');
                 }
             } catch (e) {
@@ -77,7 +77,7 @@ function Profile() {
                         <Title text1="MY" text2="PROFILE" />
                         <ul className="flex min-h-[15rem] flex-col gap-8 overflow-hidden p-6 shadow-2xl">
                             <li className="group/li p-4">
-                                <div className="group/img relative mx-auto h-14 w-14 duration-500 group-hover/li:scale-125 ">
+                                <div className="group/img relative mx-auto h-14 w-14 duration-500 group-hover/li:scale-125">
                                     <img
                                         className="h-full w-full rounded-full shadow-md shadow-slate-700"
                                         src={userInfo.avatar || 'src/assets/about_img.png'}
@@ -90,28 +90,28 @@ function Profile() {
                                     </div>
                                 </div>
                             </li>
-                            <li className="group flex flex-col items-center gap-2 p-4 text-center text-gray-400 duration-500  hover:scale-110 hover:font-bold hover:text-gray-600 hover:shadow-lg md:flex-row md:justify-center md:gap-8">
+                            <li className="group flex flex-col items-center gap-2 p-4 text-center text-gray-400 duration-500 hover:scale-110 hover:font-bold hover:text-gray-600 hover:shadow-lg md:flex-row md:justify-center md:gap-8">
                                 <p>用户名</p>
                                 <p className="block group-hover:hidden md:hidden">...</p>
-                                <div className="hidden flex-col gap-2 group-hover:flex md:flex-row md:items-center md:gap-4 font-medium">
+                                <div className="hidden flex-col gap-2 font-medium group-hover:flex md:flex-row md:items-center md:gap-4">
                                     <p className="text-sky-600">{userInfo.name || '暂未设置'}</p>
                                     <input
                                         value={name}
                                         onChange={e => {
                                             setName(e.target.value);
                                         }}
-                                        placeholder='请输入用户名'
+                                        placeholder="请输入用户名"
                                         className={`mx-auto block rounded-md border border-slate-500 px-2 outline-none focus:border-pink-400 ${editName ? '' : 'hidden'}`}
                                         type="text"
                                     />
-                                    <button onClick={handleUpdateName} className=" text-sm text-red-400">
+                                    <button onClick={handleUpdateName} className="text-sm text-red-400">
                                         {editName ? '确定修改' : '修改用户名'}
                                     </button>
                                     <button
                                         onClick={() => {
                                             setEditName(false);
                                         }}
-                                        className={`text-xs leading-[normal] mt-2 md:ml-4 md:mt-0 text-slate-400 ${editName ? '' : 'hidden'}`}>
+                                        className={`mt-2 text-xs leading-[normal] text-slate-400 md:ml-4 md:mt-0 ${editName ? '' : 'hidden'}`}>
                                         取消修改
                                     </button>
                                 </div>
@@ -119,25 +119,25 @@ function Profile() {
                             <li className="group flex flex-col gap-2 p-4 text-center text-gray-400 duration-500 hover:scale-110 hover:font-bold hover:text-gray-600 hover:shadow-lg md:flex-row md:justify-center md:gap-8">
                                 <p>邮箱</p>
                                 <p className="block group-hover:hidden md:hidden">...</p>
-                                <div className="hidden flex-col gap-2 group-hover:flex md:flex-row md:items-center md:gap-4 font-medium">
-                                <p className="text-sky-600">{userInfo.email || '暂未设置'}</p>
+                                <div className="hidden flex-col gap-2 font-medium group-hover:flex md:flex-row md:items-center md:gap-4">
+                                    <p className="text-sky-600">{userInfo.email || '暂未设置'}</p>
                                     <input
                                         value={email}
                                         onChange={e => {
                                             setEmail(e.target.value);
                                         }}
-                                        placeholder='请输入邮箱'
-                                        className={`mx-auto block rounded-md border border-slate-500 px-2 outline-none focus:border-pink-400  ${editEmail ? '' : 'hidden'}`}
+                                        placeholder="请输入邮箱"
+                                        className={`mx-auto block rounded-md border border-slate-500 px-2 outline-none focus:border-pink-400 ${editEmail ? '' : 'hidden'}`}
                                         type="email"
                                     />
-                                    <button onClick={handleUpdateEmail} className=" text-sm text-red-400">
+                                    <button onClick={handleUpdateEmail} className="text-sm text-red-400">
                                         {editEmail ? '确定修改' : '修改邮箱'}
                                     </button>
                                     <button
                                         onClick={() => {
                                             setEditEmail(false);
                                         }}
-                                        className={`text-xs leading-[normal] mt-2 md:ml-4 md:mt-0 text-slate-400 ${editEmail ? '' : 'hidden'}`}>
+                                        className={`mt-2 text-xs leading-[normal] text-slate-400 md:ml-4 md:mt-0 ${editEmail ? '' : 'hidden'}`}>
                                         取消修改
                                     </button>
                                 </div>

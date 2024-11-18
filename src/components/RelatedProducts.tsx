@@ -8,7 +8,7 @@ import { shallowEqual } from 'react-redux';
 
 export default function RelatedProducts({ category, subCategory }: { category: string; subCategory: string }) {
     // const { products } = useShopContext();
-    const products = useAppSelector(getAllProducts,shallowEqual);
+    const products = useAppSelector(getAllProducts, shallowEqual);
     const [related, setRelated] = useState<ProductItemType[]>([]);
     useEffect(() => {
         if (products.length) {

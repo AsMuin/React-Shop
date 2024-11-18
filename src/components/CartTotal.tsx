@@ -11,8 +11,8 @@ export default function CartTotal() {
         delivery_fee
         // , getCartAmount
     } = useShopContext();
-    const products = useAppSelector(getAllProducts,shallowEqual);
-    const cartData = useAppSelector(getAllCartItems,shallowEqual);
+    const products = useAppSelector(getAllProducts, shallowEqual);
+    const cartData = useAppSelector(getAllCartItems, shallowEqual);
     const cartTotal = cartData.reduce((acc, curr) => {
         const product = products.find(p => p._id === curr.productId);
         if (product) {

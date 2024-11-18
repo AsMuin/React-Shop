@@ -8,7 +8,7 @@ import { shallowEqual } from 'react-redux';
 
 export default function BestSeller() {
     // const { products } = useShopContext();
-    const products = useAppSelector(getAllProducts,shallowEqual);
+    const products = useAppSelector(getAllProducts, shallowEqual);
     const [bestSeller, setBestSeller] = useState<typeof products>([]);
     useEffect(() => {
         const bestProduct = products!.filter(product => product.bestseller);

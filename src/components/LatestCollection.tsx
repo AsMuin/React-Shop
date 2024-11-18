@@ -7,7 +7,7 @@ import { getAllProducts } from '@/service/store/product';
 import { shallowEqual } from 'react-redux';
 export default function LatestCollection() {
     // const { products } = useShopContext();
-    const products = useAppSelector(getAllProducts,shallowEqual);
+    const products = useAppSelector(getAllProducts, shallowEqual);
     const [latestProducts, setLatestProducts] = useState<typeof products>([]);
     useEffect(() => {
         setLatestProducts(products.slice(0, 10));

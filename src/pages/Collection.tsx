@@ -13,7 +13,7 @@ export default function Collection() {
         search,
         showSearch
     } = useShopContext();
-    const products = useAppSelector(getAllProducts,shallowEqual);
+    const products = useAppSelector(getAllProducts, shallowEqual);
     console.log('products', products);
 
     const [showFilters, setShowFilters] = useState(false);
