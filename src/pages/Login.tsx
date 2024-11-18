@@ -58,7 +58,7 @@ export default function Login() {
                         onChange={e => setName(e.target.value)}
                         type="text"
                         className="w-full border border-gray-800 px-3 py-2"
-                        placeholder="Name"
+                        placeholder="请输入用户名"
                     />
                 )}
                 <input
@@ -66,7 +66,7 @@ export default function Login() {
                     onChange={e => setEmail(e.target.value)}
                     type="email"
                     className="w-full border border-gray-800 px-3 py-2"
-                    placeholder="Email"
+                    placeholder="请输入邮箱地址"
                     required
                 />
                 <input
@@ -74,7 +74,7 @@ export default function Login() {
                     onChange={e => setPassword(e.target.value)}
                     type="password"
                     className="w-full border border-gray-800 px-3 py-2"
-                    placeholder="Password"
+                    placeholder="请输入密码"
                     required
                 />
                 <div className="mt-[-8px] flex w-full justify-between text-sm">

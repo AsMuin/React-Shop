@@ -109,7 +109,7 @@ export default function PlaceOrder() {
                             value={formData.firstName}
                             className="w-full rounded border border-gray-300 px-3.5 py-1.5"
                             type="text"
-                            placeholder="First Name"
+                            placeholder="姓氏"
                         />
                         <input
                             required
@@ -118,7 +118,7 @@ export default function PlaceOrder() {
                             value={formData.lastName}
                             className="w-full rounded border border-gray-300 px-3.5 py-1.5"
                             type="text"
-                            placeholder="Last Name"
+                            placeholder="名字"
                         />
                     </div>
                     <input
@@ -128,7 +128,7 @@ export default function PlaceOrder() {
                         value={formData.email}
                         className="w-full rounded border border-gray-300 px-3.5 py-1.5"
                         type="text"
-                        placeholder="Email Address"
+                        placeholder="邮箱地址"
                     />
                     <input
                         required
@@ -137,7 +137,7 @@ export default function PlaceOrder() {
                         value={formData.street}
                         className="w-full rounded border border-gray-300 px-3.5 py-1.5"
                         type="text"
-                        placeholder="Street Address"
+                        placeholder="详细地址"
                     />
                     <input
                         required
@@ -146,7 +146,7 @@ export default function PlaceOrder() {
                         value={formData.zipCode}
                         className="w-full rounded border border-gray-300 px-3.5 py-1.5"
                         type="number"
-                        placeholder="Zip Code"
+                        placeholder="邮政编码"
                     />
                     <div className="flex flex-col gap-3">
                         <input
@@ -156,7 +156,7 @@ export default function PlaceOrder() {
                             value={formData.city}
                             className="w-full rounded border border-gray-300 px-3.5 py-1.5"
                             type="text"
-                            placeholder="City"
+                            placeholder="城市"
                         />
                         <input
                             required
@@ -165,7 +165,7 @@ export default function PlaceOrder() {
                             value={formData.province}
                             className="w-full rounded border border-gray-300 px-3.5 py-1.5"
                             type="text"
-                            placeholder="Province"
+                            placeholder="省份"
                         />
                     </div>
                     <input
@@ -175,7 +175,7 @@ export default function PlaceOrder() {
                         value={formData.phone}
                         className="w-full rounded border border-gray-300 px-3.5 py-1.5"
                         type="number"
-                        placeholder="Phone Number"
+                        placeholder="手机号码"
                     />
                 </div>
                 <div className="mt-8">
@@ -196,7 +196,7 @@ export default function PlaceOrder() {
                         </div>
                         <div className="mt-8 w-full text-end">
                             <button type="submit" className="bg-black px-16 py-3 text-sm text-white">
-                                PLACE ORDER
+                                下单
                             </button>
                         </div>
                     </div>

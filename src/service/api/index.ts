@@ -18,9 +18,9 @@ Axios.interceptors.request.use(
         } else {
             const token = localStorage.getItem('token');
             if (!token) {
-                // setTimeout(() => {
-                //     window.location.href = '/login';
-                // }, 2500);
+                setTimeout(() => {
+                    window.location.href = '/login';
+                }, 2500);
                 return Promise.reject(new Error('请先登录'));
             } else {
                 config.headers.Authorization = token;

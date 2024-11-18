@@ -5,8 +5,9 @@ import { getCartAmount } from '@/service/store/cart';
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { removeAll } from '@/service/store/cart';
-import { logout } from '@/service/store/user';
+import { getUserInfo, logout } from '@/service/store/user';
 export default function Navbar() {
+    const userInfo = useAppSelector(getUserInfo);
     const [visible, setVisible] = useState(false);
     const {
         dispatch,
@@ -36,9 +37,16 @@ export default function Navbar() {
     }
     return (
         <>
-            <div className="flex items-center justify-between py-5 font-medium">
+            <div className="flex items-center justify-between py-5 font-medium ">
                 <Link to="/">
-                    <img src={assets.logo} className="w-36" alt="" />
+                    <div className="flex gap-6 ">
+                        <img src={userInfo.avatar ||assets.logo} className="w-36" alt="" />
+                        <div className=" hidden items-center gap-2 lg:flex flex-1">
+                            <img className="h-8 w-8 rounded-full" src={assets.about_img} alt="" />
+                            <span className="text-xs text-slate-500">欢迎您</span>
+                            <span className="text-xs truncate max-w-20 text-slate-600 font-semibold">{userInfo.name || '尊敬的游客'}</span>
+                        </div>
+                    </div>
                 </Link>
                 <ul className="hidden gap-5 text-sm text-gray-700 sm:flex">
                     {links.map(link => (

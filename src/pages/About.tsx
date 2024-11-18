@@ -15,7 +15,7 @@ export default function About() {
                         Forever was born out of the need for a simple and affordable e-commerce platform that can be easily managed by non-technical
                         the way that businesses need. We are a team of developers and designers who are passionate about creating products that are
                         both functional and engaging. We are dedicated to providing the best possible service to our clients, and we are always
-                        looking for new ways to improve our products and services.
+                        looking for new ways to improve our products and services. 
                     </p>
                     <p>
                         Since our inception, we're dedicated to curating a diverse range of products that are tailored to meet the needs of our

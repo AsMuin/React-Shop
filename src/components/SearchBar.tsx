@@ -22,7 +22,7 @@ export default function SearchBar() {
                     <div className="mx-3 my-5 inline-flex w-3/4 items-center justify-center rounded-full border border-gray-400 px-5 py-2 sm:w-1/2">
                         <input
                             type="text"
-                            placeholder="Search"
+                            placeholder="检索商品"
                             className="flex-1 bg-inherit text-sm outline-none"
                             value={search}
                             onChange={e => setSearch!(e.target.value)}
