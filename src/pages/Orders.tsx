@@ -35,7 +35,8 @@ export default function Orders() {
     }, []);
     async function getOrderData() {
         try {
-            const response = await getUserOrderList<API_OrderData[]>();
+            const [request] =  getUserOrderList<API_OrderData[]>();
+            const {data:response} = await request;
             console.log(response);
             const newOrderData = response.data!.flatMap(order =>
                 order.items.map(item => ({

@@ -58,7 +58,8 @@ export default function PlaceOrder() {
                     break;
                 }
                 case 'stripe': {
-                    const responseStripe = await stripeOrder<string>(orderData);
+                    const [request] =  stripeOrder<string>(orderData);
+                    const {data:responseStripe} = await request;
                     console.log(responseStripe);
                     toast.success('下单成功,即将跳转支付页面');
                     setTimeout(() => {

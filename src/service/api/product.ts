@@ -1,8 +1,9 @@
-import request from '.';
+import { AxiosRequestConfig } from 'axios';
+import useRequest from '.';
 const BASEURL = '/product';
 
-function getProductList<T>() {
-    return request<T>({ url: `${BASEURL}/list`, method: 'get' });
+function getProductList<T>(...config: AxiosRequestConfig[]) {
+    return useRequest<T>({...config, url: `${BASEURL}/list`, method: 'get' });
 }
 
 export { getProductList };
