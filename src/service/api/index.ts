@@ -71,8 +71,8 @@ function getRequest<T = any>(config: AxiosRequestConfig): [Promise<AxiosResponse
         const controller = new AbortController();
         config.signal = config.signal || controller.signal;
         console.log(config);
-        const Request = Axios.request<IData<T>>(config);
-        return [Request, controller];
+        const Response = Axios.request<IData<T>>(config);
+        return [Response, controller];
     } catch (error: any) {
         // 记录错误日志
         console.error('Request failed:', error);

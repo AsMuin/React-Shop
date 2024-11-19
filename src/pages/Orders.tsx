@@ -31,12 +31,12 @@ export default function Orders() {
     const { currency } = useShopContext();
     const [orderData, setOrderData] = useState<IOderDataItem[]>([]);
     useEffect(() => {
-        getOrderData();
+        // getOrderData();
     }, []);
     async function getOrderData() {
         try {
-            const [request] =  getUserOrderList<API_OrderData[]>();
-            const {data:response} = await request;
+            const [Response,controller] =  getUserOrderList<API_OrderData[]>();
+            const {data:response} = await Response;
             console.log(response);
             const newOrderData = response.data!.flatMap(order =>
                 order.items.map(item => ({

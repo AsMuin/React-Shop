@@ -26,8 +26,8 @@ export default function Login() {
                 navigate('/');
                 toast.success('登录成功');
             } else {
-                const [reqeust] = register({ name, email, password });
-                const { data: response } = await reqeust;
+                const [Response] = register({ name, email, password });
+                const { data: response } = await Response;
                 setName('');
                 setEmail('');
                 setPassword('');

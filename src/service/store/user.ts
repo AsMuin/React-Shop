@@ -57,8 +57,8 @@ const userSlice = createSlice({
 
 export const userLogin = createAsyncThunk('user/login', async ({ email, password }: { email: string; password: string }) => {
     try {
-        const [request] = login<{ name: string; email: string; avatar: string }>({ email, password });
-        const { data: response } = await request;
+        const [Response] = login<{ name: string; email: string; avatar: string }>({ email, password });
+        const { data: response } = await Response;
         return response.data;
     } catch (e) {
         console.error(e);
@@ -67,8 +67,8 @@ export const userLogin = createAsyncThunk('user/login', async ({ email, password
 
 export const fetchUserInfo = createAsyncThunk('user/fetchUserInfo', async () => {
     try {
-        const [request] = getInfo<{ name: string; email: string; avatar: string }>();
-        const { data: response } = await request;
+        const [Response] = getInfo<{ name: string; email: string; avatar: string }>();
+        const { data: response } = await Response;
         return response.data;
     } catch (e) {
         console.error(e);

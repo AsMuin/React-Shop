@@ -105,8 +105,8 @@ export const updateNumberInCartQuantity = createAsyncThunk(
     'cart/updateNumberInCartQuantity',
     async ({ productId, size, quantity }: { productId: string; size: SIZE_TYPE; quantity: number }) => {
         try {
-            const [request] = updateQuantity({ productId, size, quantity });
-            await request;
+            const [Response] = updateQuantity({ productId, size, quantity });
+            await Response;
             return { productId, size, quantity };
         } catch (e) {
             console.error(e);
