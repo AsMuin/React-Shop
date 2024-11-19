@@ -27,9 +27,9 @@ const productSlice = createSlice({
     }
 });
 
-export const fetchProductList = createAsyncThunk('product/fetchProductList', async () => {
+export const fetchProductList = createAsyncThunk('product/fetchProductList', async (_,{signal}) => {
     try {
-        const [request] = getProductList<ProductItem[]>();
+        const [request] = getProductList<ProductItem[]>({},{signal});
         const { data: response } = await request;
         return response.data;
     } catch (e) {

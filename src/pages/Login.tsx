@@ -18,16 +18,16 @@ export default function Login() {
         try {
             if (currentState === 'Login') {
                 await dispatch(userLogin({ email, password }));
-                await dispatch(getUserCartData());
-                await dispatch(fetchUserInfo());
+                dispatch(getUserCartData());
+                dispatch(fetchUserInfo());
                 setName('');
                 setEmail('');
                 setPassword('');
                 navigate('/');
                 toast.success('登录成功');
             } else {
-                const [reqeust] =  register({ name, email, password });
-                const {data:response} = await reqeust;
+                const [reqeust] = register({ name, email, password });
+                const { data: response } = await reqeust;
                 setName('');
                 setEmail('');
                 setPassword('');
