@@ -13,7 +13,6 @@ const Axios = axios.create({
 });
 
 const controllers = new Map<string, AbortController>();
-
 //请求拦截器
 Axios.interceptors.request.use(
     config => {
@@ -65,14 +64,16 @@ Axios.interceptors.response.use(
 );
 
 //请求方法
-function getRequest<T = any>(config: AxiosRequestConfig): [Promise<AxiosResponse<IData<T>>>, AbortController] {
+async function getRequest<T = any>(config: AxiosRequestConfig): Promise<IData<T>> {
     try {
         // 设置取消控制器
-        const controller = new AbortController();
-        config.signal = config.signal || controller.signal;
-        console.log(config);
-        const Response = Axios.request<IData<T>>(config);
-        return [Response, controller];
+        // const controller = new AbortController();
+        // console.log('config', config.signal);
+
+        // config.signal = config.signal || controller.signal;
+        // console.log(config);
+        const Response = await Axios.request<IData<T>>(config);
+        return Response.data;
     } catch (error: any) {
         // 记录错误日志
         console.error('Request failed:', error);

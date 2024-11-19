@@ -83,8 +83,7 @@ const cartSlice = createSlice({
 
 export const getUserCartData = createAsyncThunk('cart/getUserCartData', async (_, { signal }) => {
     try {
-        const [request] = getUserCart<CartData>({}, { signal });
-        const { data: response } = await request;
+        const response = await getUserCart<CartData>({}, { signal });
         return response.data;
     } catch (e) {
         console.error(e);
@@ -93,8 +92,7 @@ export const getUserCartData = createAsyncThunk('cart/getUserCartData', async (_
 
 export const addToCart = createAsyncThunk('cart/addToCart', async ({ productId, size }: { productId: string; size: SIZE_TYPE }) => {
     try {
-        const [request] = addProductToCart({ productId, size });
-        await request;
+        await addProductToCart({ productId, size });
         return { productId, size };
     } catch (e) {
         console.error(e);
@@ -105,8 +103,7 @@ export const updateNumberInCartQuantity = createAsyncThunk(
     'cart/updateNumberInCartQuantity',
     async ({ productId, size, quantity }: { productId: string; size: SIZE_TYPE; quantity: number }) => {
         try {
-            const [Response] = updateQuantity({ productId, size, quantity });
-            await Response;
+            await updateQuantity({ productId, size, quantity });
             return { productId, size, quantity };
         } catch (e) {
             console.error(e);

@@ -31,13 +31,15 @@ export default function Orders() {
     const { currency } = useShopContext();
     const [orderData, setOrderData] = useState<IOderDataItem[]>([]);
     useEffect(() => {
-        // getOrderData();
+        const controller = new AbortController();
+        getOrderData(controller);
+        return () => {
+            controller.abort();
+        };
     }, []);
-    async function getOrderData() {
+    async function getOrderData(controller?: AbortController) {
         try {
-            const [Response,controller] =  getUserOrderList<API_OrderData[]>();
-            const {data:response} = await Response;
-            console.log(response);
+            const response = await getUserOrderList<API_OrderData[]>(null, { signal: controller?.signal });
             const newOrderData = response.data!.flatMap(order =>
                 order.items.map(item => ({
                     ...item,
@@ -51,6 +53,7 @@ export default function Orders() {
             console.error(e);
         }
     }
+
     return (
         <>
             <div className="border-t pt-16">
@@ -84,7 +87,11 @@ export default function Orders() {
                                     <p className="h-2 min-w-2 rounded-full bg-green-500"></p>
                                     <p className="text-sm md:text-base">{product.status}</p>
                                 </div>
-                                <button onClick={getOrderData} className="rounded-sm border px-4 py-2 text-sm font-medium">
+                                <button
+                                    onClick={() => {
+                                        getOrderData();
+                                    }}
+                                    className="rounded-sm border px-4 py-2 text-sm font-medium">
                                     Track Order
                                 </button>
                             </div>

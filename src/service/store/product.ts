@@ -29,8 +29,8 @@ const productSlice = createSlice({
 
 export const fetchProductList = createAsyncThunk('product/fetchProductList', async (_, { signal }) => {
     try {
-        const [Response] = getProductList<ProductItem[]>({}, { signal });
-        const { data: response } = await Response;
+        console.log('store', signal);
+        const response = await getProductList<ProductItem[]>({}, { signal });
         return response.data;
     } catch (e) {
         console.error(e);

@@ -57,18 +57,18 @@ const userSlice = createSlice({
 
 export const userLogin = createAsyncThunk('user/login', async ({ email, password }: { email: string; password: string }) => {
     try {
-        const [Response] = login<{ name: string; email: string; avatar: string }>({ email, password });
-        const { data: response } = await Response;
+        const response = await login<{ name: string; email: string; avatar: string }>({ email, password });
         return response.data;
     } catch (e) {
         console.error(e);
     }
 });
 
-export const fetchUserInfo = createAsyncThunk('user/fetchUserInfo', async () => {
+export const fetchUserInfo = createAsyncThunk('user/fetchUserInfo', async (_, { signal }) => {
     try {
-        const [Response] = getInfo<{ name: string; email: string; avatar: string }>();
-        const { data: response } = await Response;
+        const response = await getInfo<{ name: string; email: string; avatar: string }>(null, {
+            signal
+        });
         return response.data;
     } catch (e) {
         console.error(e);
@@ -77,8 +77,7 @@ export const fetchUserInfo = createAsyncThunk('user/fetchUserInfo', async () => 
 
 export const uploadUserAvatar = createAsyncThunk('user/uploadUserAvatar', async ({ avatar }: { avatar: File }) => {
     try {
-        const [request] = uploadAvatar<IUserInfo>({ avatar });
-        const { data: response } = await request;
+        const response = await uploadAvatar<IUserInfo>({ avatar });
         return response.data;
     } catch (e) {
         console.error(e);
@@ -87,8 +86,7 @@ export const uploadUserAvatar = createAsyncThunk('user/uploadUserAvatar', async 
 
 export const updateUserName = createAsyncThunk('user/updateUserName', async ({ name }: { name: string }) => {
     try {
-        const [request] = updateName<IUserInfo>({ name });
-        const { data: response } = await request;
+        const response = await updateName<IUserInfo>({ name });
         return response.data;
     } catch (e) {
         console.error(e);
@@ -97,8 +95,7 @@ export const updateUserName = createAsyncThunk('user/updateUserName', async ({ n
 
 export const updateUserEmail = createAsyncThunk('user/updateUserEmail', async ({ email }: { email: string }) => {
     try {
-        const [request] = updateEmail<IUserInfo>({ email });
-        const { data: response } = await request;
+        const response = await updateEmail<IUserInfo>({ email });
         return response.data;
     } catch (e) {
         console.error(e);

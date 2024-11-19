@@ -1,10 +1,9 @@
 import { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchProductList } from '@/service/store/product';
-import { useAppDispatch, useAppSelector } from '../store';
+import { useAppDispatch } from '../store';
 import { getUserCartData } from '../store/cart';
-import { fetchUserInfo, getUserInfo } from '../store/user';
-import { shallowEqual } from 'react-redux';
+import { fetchUserInfo } from '../store/user';
 export type SIZE_TYPE = 'S' | 'M' | 'L' | 'XL' | 'XXL';
 export interface ProductItem {
     _id: string;
@@ -44,7 +43,6 @@ const ShopContextProvider = function (props: { children: React.ReactNode }) {
     const [showSearch, setShowSearch] = useState(true);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const userInfo = useAppSelector(getUserInfo, shallowEqual);
     useEffect(() => {
         const promiseProductList = dispatch(fetchProductList());
         const promiseUserCart = localStorage.getItem('token') && dispatch(getUserCartData());
@@ -64,7 +62,7 @@ const ShopContextProvider = function (props: { children: React.ReactNode }) {
                 promiseUserInfo.abort();
             }
         };
-    }, [userInfo, dispatch]);
+    }, [dispatch]);
 
     const value = {
         dispatch,
