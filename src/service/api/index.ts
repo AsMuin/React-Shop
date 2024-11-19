@@ -31,7 +31,7 @@ Axios.interceptors.request.use(
         }
     },
     error => {
-        toast.error(error);
+        toast.error(error.message);
         return Promise.reject(error);
     }
 );
@@ -51,7 +51,11 @@ Axios.interceptors.response.use(
         }
     },
     error => {
-        toast.error(error.message);
+        if (error.name === 'CanceledError') {
+            console.error('请求取消');
+        } else {
+            toast.error(error.message);
+        }
         return Promise.reject(error);
     }
 );
@@ -62,9 +66,7 @@ async function getRequest<T = any>(config: AxiosRequestConfig): Promise<IData<T>
         const Response = await Axios.request<IData<T>>(config);
         return Response.data;
     } catch (error: any) {
-        // 记录错误日志
-        console.error('Request failed:', error);
-        throw error; // 重新抛出错误
+        return Promise.reject(error);
     }
 }
 
