@@ -81,7 +81,7 @@ const cartSlice = createSlice({
     }
 });
 
-export const getUserCartData = createAsyncThunk('cart/getUserCartData', async (_,{signal}) => {
+export const getUserCartData = createAsyncThunk('cart/getUserCartData', async (_, { signal }) => {
     try {
         const [request] = getUserCart<CartData>({}, { signal });
         const { data: response } = await request;

@@ -7,7 +7,7 @@ import { removeAll } from '@/service/store/cart';
 
 function Verify() {
     const { dispatch, navigate } = useShopContext();
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const success = searchParams.get('success') === 'true';
     const orderId = searchParams.get('orderId')!;
     useEffect(() => {

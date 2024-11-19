@@ -50,7 +50,7 @@ const ShopContextProvider = function (props: { children: React.ReactNode }) {
         const promiseUserCart = localStorage.getItem('token') && dispatch(getUserCartData());
         return () => {
             promiseProductList.abort();
-            if (localStorage.getItem('token') && promiseUserCart) {
+            if (promiseUserCart) {
                 promiseUserCart.abort();
             }
             console.log('aborted');
@@ -58,9 +58,12 @@ const ShopContextProvider = function (props: { children: React.ReactNode }) {
     }, [dispatch]);
 
     useEffect(() => {
-        if (userInfo.email === '' && userInfo.name === '' && localStorage.getItem('token')) {
-            dispatch(fetchUserInfo());
-        }
+        const promiseUserInfo = localStorage.getItem('token') && dispatch(fetchUserInfo());
+        return () => {
+            if (promiseUserInfo) {
+                promiseUserInfo.abort();
+            }
+        };
     }, [userInfo, dispatch]);
 
     const value = {
