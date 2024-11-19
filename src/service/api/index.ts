@@ -12,7 +12,6 @@ const Axios = axios.create({
     baseURL
 });
 
-const controllers = new Map<string, AbortController>();
 //请求拦截器
 Axios.interceptors.request.use(
     config => {
@@ -27,12 +26,6 @@ Axios.interceptors.request.use(
                 return Promise.reject(new Error('请先登录'));
             } else {
                 config.headers.Authorization = token;
-                // //设置取消控制器
-                // const controller = new AbortController();
-                // config.signal = controller.signal;
-                // if(config.url){
-                //      controllers.set(config.url, controller);
-                // }
                 return config;
             }
         }
@@ -66,12 +59,6 @@ Axios.interceptors.response.use(
 //请求方法
 async function getRequest<T = any>(config: AxiosRequestConfig): Promise<IData<T>> {
     try {
-        // 设置取消控制器
-        // const controller = new AbortController();
-        // console.log('config', config.signal);
-
-        // config.signal = config.signal || controller.signal;
-        // console.log(config);
         const Response = await Axios.request<IData<T>>(config);
         return Response.data;
     } catch (error: any) {
@@ -81,16 +68,4 @@ async function getRequest<T = any>(config: AxiosRequestConfig): Promise<IData<T>
     }
 }
 
-//取消请求
-function cancelRequest(url: string) {
-    const controller = controllers.get(url);
-    if (controller) {
-        controller.abort();
-        controllers.delete(url);
-        console.log('取消请求,地址为😥', url);
-    }
-}
-
 export default getRequest;
-
-export { cancelRequest };
