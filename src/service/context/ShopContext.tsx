@@ -46,11 +46,15 @@ const ShopContextProvider = function (props: { children: React.ReactNode }) {
     const dispatch = useAppDispatch();
     const userInfo = useAppSelector(getUserInfo, shallowEqual);
     useEffect(() => {
-        dispatch(fetchProductList()).then(() => {
-            if (localStorage.getItem('token')) {
-                dispatch(getUserCartData());
+        const promiseProductList = dispatch(fetchProductList());
+        const promiseUserCart = localStorage.getItem('token') && dispatch(getUserCartData());
+        return () => {
+            promiseProductList.abort();
+            if (localStorage.getItem('token') && promiseUserCart) {
+                promiseUserCart.abort();
             }
-        });
+            console.log('aborted');
+        };
     }, [dispatch]);
 
     useEffect(() => {

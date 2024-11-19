@@ -65,31 +65,31 @@ Axios.interceptors.response.use(
 );
 
 //请求方法
- function useRequest<T = any>(config: AxiosRequestConfig): [Promise<AxiosResponse<IData<T>>>, AbortController] {
+function getRequest<T = any>(config: AxiosRequestConfig): [Promise<AxiosResponse<IData<T>>>, AbortController] {
     try {
         // 设置取消控制器
         const controller = new AbortController();
-        config.signal ?? controller.signal;
+        config.signal = config.signal || controller.signal;
         console.log(config);
         const Request = Axios.request<IData<T>>(config);
         return [Request, controller];
     } catch (error: any) {
         // 记录错误日志
         console.error('Request failed:', error);
-        throw error; // 重新抛出错误，以便调用者处理
+        throw error; // 重新抛出错误
     }
 }
 
 //取消请求
-function cancelRequest(url:string){
+function cancelRequest(url: string) {
     const controller = controllers.get(url);
     if (controller) {
         controller.abort();
         controllers.delete(url);
-        console.log('取消请求,地址为😥',url);
+        console.log('取消请求,地址为😥', url);
     }
 }
 
-export default useRequest;
+export default getRequest;
 
 export { cancelRequest };
