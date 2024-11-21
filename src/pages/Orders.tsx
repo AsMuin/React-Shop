@@ -39,7 +39,7 @@ export default function Orders() {
     }, []);
     async function getOrderData(controller?: AbortController) {
         try {
-            const response = await getUserOrderList<API_OrderData[]>(null, { signal: controller?.signal });
+            const response = await getUserOrderList<API_OrderData[]>({ signal: controller?.signal });
             const newOrderData = response.data!.flatMap(order =>
                 order.items.map(item => ({
                     ...item,
