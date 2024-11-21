@@ -83,7 +83,7 @@ const cartSlice = createSlice({
 
 export const getUserCartData = createAsyncThunk('cart/getUserCartData', async (_, { signal }) => {
     try {
-        const response = await getUserCart<CartData>({}, { signal });
+        const response = await getUserCart<CartData>({ signal });
         return response.data;
     } catch (e) {
         console.error(e);

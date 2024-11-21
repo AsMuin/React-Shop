@@ -30,7 +30,7 @@ const productSlice = createSlice({
 export const fetchProductList = createAsyncThunk('product/fetchProductList', async (_, { signal }) => {
     try {
         console.log('store', signal);
-        const response = await getProductList<ProductItem[]>({}, { signal });
+        const response = await getProductList<ProductItem[]>({ signal });
         return response.data;
     } catch (e) {
         console.error(e);

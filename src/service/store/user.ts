@@ -66,7 +66,7 @@ export const userLogin = createAsyncThunk('user/login', async ({ email, password
 
 export const fetchUserInfo = createAsyncThunk('user/fetchUserInfo', async (_, { signal }) => {
     try {
-        const response = await getInfo<{ name: string; email: string; avatar: string }>(null, {
+        const response = await getInfo<{ name: string; email: string; avatar: string }>({
             signal
         });
         return response.data;
