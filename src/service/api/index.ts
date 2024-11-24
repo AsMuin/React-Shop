@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { AxiosResponse, AxiosRequestConfig } from 'axios';
+import type { AxiosResponse, AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 import { toast } from 'react-toastify';
 interface IData<T = any> {
     success: boolean;
@@ -11,10 +11,12 @@ const baseURL = '/api';
 const Axios = axios.create({
     baseURL
 });
-
+export interface IRequestConfig extends AxiosRequestConfig {
+    toastError?: boolean;
+}
 //请求拦截器
 Axios.interceptors.request.use(
-    config => {
+    (config: InternalAxiosRequestConfig & IRequestConfig) => {
         if (config.url === '/user/login' || config.url === '/user/register' || config.url === '/product/list') {
             return config;
         } else {
@@ -46,7 +48,10 @@ Axios.interceptors.response.use(
             }
             return response;
         } else {
-            toast.error(data.message);
+            const toastError = (response.config as IRequestConfig).toastError ?? true;
+            if (toastError) {
+                toast.error(data.message);
+            }
             return Promise.reject(data.message);
         }
     },

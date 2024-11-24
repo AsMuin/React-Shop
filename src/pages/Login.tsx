@@ -17,9 +17,8 @@ export default function Login() {
         console.log('Form submitted');
         try {
             if (currentState === 'Login') {
-                await dispatch(userLogin({ email, password }));
-                dispatch(getUserCartData());
-                dispatch(fetchUserInfo());
+                await dispatch(userLogin({ email, password })).unwrap();
+                await Promise.all([dispatch(getUserCartData()), dispatch(fetchUserInfo())]);
                 setName('');
                 setEmail('');
                 setPassword('');

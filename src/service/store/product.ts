@@ -27,10 +27,14 @@ const productSlice = createSlice({
     }
 });
 
-export const fetchProductList = createAsyncThunk('product/fetchProductList', async (_, { signal }) => {
+export const fetchProductList = createAsyncThunk('product/fetchProductList', async (_, { signal, rejectWithValue }) => {
     try {
         console.log('store', signal);
         const response = await getProductList<ProductItem[]>({ signal });
+        if (!response.success) {
+            // 使用 rejectWithValue 返回错误信息，避免直接抛出原始错误
+            return rejectWithValue(response.message);
+        }
         return response.data;
     } catch (e) {
         console.error(e);

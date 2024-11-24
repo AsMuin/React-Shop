@@ -81,29 +81,42 @@ const cartSlice = createSlice({
     }
 });
 
-export const getUserCartData = createAsyncThunk('cart/getUserCartData', async (_, { signal }) => {
+export const getUserCartData = createAsyncThunk('cart/getUserCartData', async (_, { signal, rejectWithValue }) => {
     try {
         const response = await getUserCart<CartData>({ signal });
+        if (!response.success) {
+            return rejectWithValue(response.message);
+        }
         return response.data;
     } catch (e) {
         console.error(e);
     }
 });
 
-export const addToCart = createAsyncThunk('cart/addToCart', async ({ productId, size }: { productId: string; size: SIZE_TYPE }) => {
-    try {
-        await addProductToCart({ productId, size });
-        return { productId, size };
-    } catch (e) {
-        console.error(e);
+export const addToCart = createAsyncThunk(
+    'cart/addToCart',
+    async ({ productId, size }: { productId: string; size: SIZE_TYPE }, { rejectWithValue }) => {
+        try {
+            const response = await addProductToCart({ productId, size });
+            if (!response.success) {
+                // 使用 rejectWithValue 返回错误信息，避免直接抛出原始错误
+                return rejectWithValue(response.message);
+            }
+            return { productId, size };
+        } catch (e) {
+            console.error(e);
+        }
     }
-});
+);
 
 export const updateNumberInCartQuantity = createAsyncThunk(
     'cart/updateNumberInCartQuantity',
-    async ({ productId, size, quantity }: { productId: string; size: SIZE_TYPE; quantity: number }) => {
+    async ({ productId, size, quantity }: { productId: string; size: SIZE_TYPE; quantity: number }, { rejectWithValue }) => {
         try {
-            await updateQuantity({ productId, size, quantity });
+            const response = await updateQuantity({ productId, size, quantity });
+            if (!response.success) {
+                return rejectWithValue(response.message);
+            }
             return { productId, size, quantity };
         } catch (e) {
             console.error(e);

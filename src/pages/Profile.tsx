@@ -22,7 +22,7 @@ function Profile() {
         uploader.onchange = async (event: any) => {
             try {
                 const avatar = event.target.files[0];
-                await dispatch(uploadUserAvatar({ avatar }));
+                await dispatch(uploadUserAvatar({ avatar })).unwrap();
                 toast.success('上传成功');
             } catch (e) {
                 console.error(e);
@@ -34,7 +34,7 @@ function Profile() {
         if (editName) {
             try {
                 if (name) {
-                    await dispatch(updateUserName({ name }));
+                    await dispatch(updateUserName({ name })).unwrap();
                     toast.success('修改成功');
                     setName('');
                     setEditName(false);
@@ -52,7 +52,7 @@ function Profile() {
         if (editEmail) {
             try {
                 if (email) {
-                    await dispatch(updateUserEmail({ email }));
+                    await dispatch(updateUserEmail({ email })).unwrap();
                     toast.success('修改成功');
                     setEmail('');
                     setEditEmail(false);

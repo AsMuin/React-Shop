@@ -44,7 +44,7 @@ function UpdatePassword() {
                         value={form.originalPassword}
                         onChange={updateFormData}
                         type="password"
-                        className="peer w-full border border-gray-800 px-3 py-2"
+                        className="w-full border border-gray-800 px-3 py-2"
                         placeholder="请输入原密码"
                         name="originalPassword"
                         required

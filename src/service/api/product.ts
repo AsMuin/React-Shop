@@ -1,8 +1,8 @@
-import { AxiosRequestConfig } from 'axios';
+import { IRequestConfig } from '.';
 import getRequest from '.';
 const BASEURL = '/product';
 
-function getProductList<T>({ ...config }: AxiosRequestConfig) {
+function getProductList<T>({ ...config }: Partial<IRequestConfig>) {
     return getRequest<T>({ ...config, url: `${BASEURL}/list`, method: 'get' });
 }
 

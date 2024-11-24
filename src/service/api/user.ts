@@ -1,15 +1,15 @@
-import { AxiosRequestConfig } from 'axios';
+import { IRequestConfig } from '.';
 import getRequest from '.';
 const BASEURL = '/user';
-function login<T>({ email, password, ...config }: { email: string; password: string } & Partial<AxiosRequestConfig>) {
+function login<T>({ email, password, ...config }: { email: string; password: string } & Partial<IRequestConfig>) {
     return getRequest<T>({ ...config, url: `${BASEURL}/login`, method: 'POST', data: { email, password } });
 }
 
-function getInfo<T>({ ...config }: AxiosRequestConfig) {
+function getInfo<T>({ ...config }: Partial<IRequestConfig>) {
     return getRequest<T>({ ...config, url: `${BASEURL}/info`, method: 'GET' });
 }
 
-function register<T>({ name, email, password, ...config }: { name: string; email: string; password: string } & Partial<AxiosRequestConfig>) {
+function register<T>({ name, email, password, ...config }: { name: string; email: string; password: string } & Partial<IRequestConfig>) {
     return getRequest<T>({ ...config, url: `${BASEURL}/register`, method: 'POST', data: { name, email, password } });
 }
 
@@ -22,11 +22,11 @@ function updatePassword<T>({
     originalPassword: string;
     password: string;
     confirmPassword: string;
-} & Partial<AxiosRequestConfig>) {
+} & Partial<IRequestConfig>) {
     return getRequest<T>({ ...config, url: `${BASEURL}/updatePassword`, method: 'POST', data: { originalPassword, password, confirmPassword } });
 }
 
-function uploadAvatar<T>({ avatar, ...config }: { avatar: File } & Partial<AxiosRequestConfig>) {
+function uploadAvatar<T>({ avatar, ...config }: { avatar: File } & Partial<IRequestConfig>) {
     return getRequest<T>({
         ...config,
         url: `${BASEURL}/uploadAvatar`,
@@ -36,11 +36,11 @@ function uploadAvatar<T>({ avatar, ...config }: { avatar: File } & Partial<Axios
     });
 }
 
-function updateEmail<T>({ email, ...config }: { email: string } & Partial<AxiosRequestConfig>) {
+function updateEmail<T>({ email, ...config }: { email: string } & Partial<IRequestConfig>) {
     return getRequest<T>({ ...config, url: `${BASEURL}/updateEmail`, method: 'POST', data: { email } });
 }
 
-function updateName<T>({ name, ...config }: { name: string } & Partial<AxiosRequestConfig>) {
+function updateName<T>({ name, ...config }: { name: string } & Partial<IRequestConfig>) {
     return getRequest<T>({ ...config, url: `${BASEURL}/updateName`, method: 'POST', data: { name } });
 }
 
