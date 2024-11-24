@@ -18,7 +18,7 @@ export default function Login() {
         try {
             if (currentState === 'Login') {
                 await dispatch(userLogin({ email, password })).unwrap();
-                await Promise.all([dispatch(getUserCartData()), dispatch(fetchUserInfo())]);
+                await Promise.all([dispatch(getUserCartData()).unwrap(), dispatch(fetchUserInfo()).unwrap()]);
                 setName('');
                 setEmail('');
                 setPassword('');

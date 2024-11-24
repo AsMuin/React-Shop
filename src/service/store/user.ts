@@ -67,10 +67,6 @@ const userSlice = createSlice({
 export const userLogin = createAsyncThunk('user/login', async ({ email, password }: { email: string; password: string }, { rejectWithValue }) => {
     try {
         const response = await login<{ email: string; avatar: string }>({ email, password });
-        if (!response.success) {
-            // 使用 rejectWithValue 返回错误信息，避免直接抛出原始错误
-            return rejectWithValue(response.message);
-        }
         return response.data;
     } catch (e) {
         return rejectWithValue(e);
@@ -99,7 +95,7 @@ export const uploadUserAvatar = createAsyncThunk('user/uploadUserAvatar', async 
         }
         return response.data;
     } catch (e) {
-        rejectWithValue(e);
+        return rejectWithValue(e);
     }
 });
 

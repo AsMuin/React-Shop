@@ -61,7 +61,7 @@ Axios.interceptors.response.use(
         } else {
             toast.error(error.message);
         }
-        return Promise.reject(error);
+        return Promise.reject(error.message);
     }
 );
 
