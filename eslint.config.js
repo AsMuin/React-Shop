@@ -9,7 +9,7 @@ import reactPlugin from 'eslint-plugin-react';
 export default tsEslint.config(
     { ignores: ['dist'] },
     {
-        extends: [js.configs.recommended, ...tsEslint.configs.recommended, prettierPlugin.recommended],
+        extends: [js.configs.recommended, ...tsEslint.configs.recommended],
         files: ['**/*.{ts,tsx}'],
         languageOptions: {
             ecmaVersion: 2020,
