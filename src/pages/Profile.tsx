@@ -24,6 +24,8 @@ function Profile() {
                 const avatar = event.target.files[0];
                 await dispatch(uploadUserAvatar({ avatar })).unwrap();
                 toast.success('上传成功');
+                uploader.onchange=null;
+                document.body.removeChild(uploader);
             } catch (e) {
                 console.error(e);
             }
